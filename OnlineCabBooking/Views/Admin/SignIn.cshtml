@@ -1,0 +1,41 @@
+﻿@model OnlineCabBooking.Models.AdminSignIn
+
+@{
+    ViewBag.Title = "SignIn";
+}
+
+<h2>Admin SignIn</h2>
+<h1>@ViewBag.value</h1>
+@using (Html.BeginForm("SignIn", "Admin", FormMethod.Post))
+{
+
+    <table>
+        <tr>
+            <td>
+                @Html.Label("Mail Id")
+            </td>
+            <td>
+                @Html.TextBoxFor(Model => Model.UserName)
+                @Html.ValidationMessageFor(model => model.UserName)
+            </td>
+        </tr>
+        <tr>
+            <td>
+                @Html.Label("Password")
+            </td>
+            <td>
+                @Html.PasswordFor(Model => Model.Password)
+                @Html.ValidationMessageFor(model => model.Password)
+            </td>
+        </tr>
+        <tr>
+            <td>
+            </td>
+            <td>
+                <input type="submit" />
+            </td>
+        </tr>
+    </table>
+}
+
+

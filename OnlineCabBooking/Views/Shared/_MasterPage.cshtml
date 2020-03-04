@@ -1,0 +1,39 @@
+﻿<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>@ViewBag.Title</title>
+    <style>
+        header {
+            height: 50px;
+            width: 100%;
+            background-color: orange;
+        }
+
+        nav {
+            float: left;
+            width: 200px;
+            height: 100%;
+            background-color: darkseagreen;
+        }
+    </style>
+</head>
+<body>
+    <header style="text-align:center">
+        <h1>Online Cab Booking</h1>
+    </header>
+    <nav>
+        @Html.ActionLink("Sign In", "SignIn", "User")<br /><br />
+        @Html.ActionLink("Sign Up", "SignUp", "User")<br /><br />
+        <div style="padding-top:500px;">
+            @Html.ActionLink("AdminLogin", "SignIn", "Admin")
+        </div>
+    </nav>
+    <div>
+        @RenderBody()
+    </div>
+
+</body>
+</html>
+

@@ -1,0 +1,32 @@
+﻿@model OnlineCabBooking.Models.LocationVM
+
+@{
+    ViewBag.Title = "Edit";
+}
+
+<h2>Edit</h2>
+@using (Html.BeginForm("Edit", "Location", FormMethod.Post))
+{
+    @Html.HiddenFor(Model => Model.LocationId)
+    <table cellpadding="10" border="1">
+        <tr>
+            <td>
+                @Html.Label("City")
+            </td>
+            <td>
+                @Html.TextBoxFor(Model => Model.CityName)
+                @Html.ValidationMessageFor(model => model.CityName)
+            </td>
+        </tr>
+        <tr>
+            <td>
+                @Html.Label("District")
+            </td>
+            <td>
+                @Html.TextBoxFor(Model => Model.DistrictName)
+                @Html.ValidationMessageFor(model => model.DistrictName)
+            </td>
+        </tr>
+        <tr><td></td><td><input type="submit" /></td></tr>
+    </table>
+}

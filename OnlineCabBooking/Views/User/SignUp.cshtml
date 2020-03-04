@@ -1,0 +1,85 @@
+﻿@model OnlineCabBooking.Models.SignUpVM
+
+@{
+    ViewBag.Title = "SignUp";
+}
+
+
+<h2>SignUp</h2>
+<h1>@ViewBag.success</h1>
+@using (Html.BeginForm("SignUp", "User", FormMethod.Post))
+{
+    <table cellpadding="10">
+        <tr>
+            <td>
+                @Html.Label("First Name")
+            </td>
+            <td>
+                @Html.TextBoxFor(Model => Model.FirstName)
+                @Html.ValidationMessageFor(model => model.FirstName)
+            </td>
+        </tr>
+
+        <tr>
+            <td>
+                @Html.Label("Last Name")
+            </td>
+            <td>
+                @Html.TextBoxFor(Model => Model.LastName)
+                @Html.ValidationMessageFor(model => model.LastName)
+            </td>
+        </tr>
+        <tr>
+            <td>
+                @Html.Label("Mobile Number")
+            </td>
+            <td>
+                @Html.TextBoxFor(Model => Model.MobileNumber)
+                @Html.ValidationMessageFor(model => model.MobileNumber)
+            </td>
+        </tr>
+        <tr>
+            <td>
+                @Html.Label("Mail Id")
+            </td>
+            <td>
+                @Html.TextBoxFor(Model => Model.MailId)
+                @Html.ValidationMessageFor(model => model.MailId)
+            </td>
+        </tr>
+        <tr>
+            <td>
+                @Html.Label("Password")
+            </td>
+            <td>
+                @Html.PasswordFor(Model => Model.Password)
+                @Html.ValidationMessageFor(model => model.Password)
+            </td>
+        </tr>
+        <tr>
+            <td>
+                @Html.Label("Confirm Password")
+            </td>
+            <td>
+                @Html.PasswordFor(Model => Model.ConfirmPassword,new { placeholder = "Enter the Password" })
+                @Html.ValidationMessageFor(model => model.ConfirmPassword)
+            </td>
+        </tr>
+        <tr>
+            <td>
+                @Html.Label("Role")
+            </td>
+            <td>
+                @Html.DropDownListFor(Model => Model.RoleId, (IEnumerable<SelectListItem>)ViewBag.Roles, "Select Role")
+                @Html.ValidationMessageFor(model => model.RoleId,null)
+            </td>
+        </tr>
+        <tr>
+            <td>
+            </td>
+            <td>
+                <input type="submit" />
+            </td>
+        </tr>
+    </table>
+}
