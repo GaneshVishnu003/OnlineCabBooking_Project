@@ -6,7 +6,7 @@
     public partial class Unique : DbMigration
     {
         public override void Up()
-        {
+        { 
             RenameTable(name: "dbo.Roles", newName: "Role");
             RenameTable(name: "dbo.Users", newName: "User");
             CreateIndex("dbo.Locations", "CityName", unique: true);
