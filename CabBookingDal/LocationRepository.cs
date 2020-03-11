@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Data.Entity;
+using System.Data.SqlClient;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -11,63 +12,47 @@ namespace CabBookingDal
     public class LocationRepository
     {
         UserContext userContext = new UserContext();
-        public IEnumerable<Location> GetLocation()
+        public IEnumerable<Location> GetLocation()//display
         {
             IEnumerable<Location> locations = userContext.LocationEntity.ToList();
             return locations;
         }
-        public Location GetlocationById(int locationId)
+
+        public void AddLocation(Location location)   //new location
         {
-            //UserContext userContext = new UserContext();
-            return userContext.LocationEntity.Single(id => id.LocationId == locationId);
-        }
-        public void DeleteLocation(int locationId)
-        {
-            Location location = userContext.LocationEntity.Single(id => id.LocationId == locationId);
-            userContext.LocationEntity.Remove(location);
+            SqlParameter city = new SqlParameter("@CityName", location.CityName);
+            SqlParameter district = new SqlParameter("@DistrictName", location.DistrictName);
+            var data = userContext.Database.ExecuteSqlCommand("Location_Insert @DistrictName, @CityName",district,city);
+            //userContext.LocationEntity.Add(location);
             userContext.SaveChanges();
         }
-        public void UpdateChanges(Location location)
+        public Location GetlocationById(int locationId)//edit
         {
-            try
+            return userContext.LocationEntity.Single(id => id.LocationId == locationId);
+        }
+        public void DeleteLocation(int locationId)//delete
+        {
+            SqlParameter id = new SqlParameter("@LocationId", locationId);
+            var data = userContext.Database.ExecuteSqlCommand("Location_Delete @LocationId", id);
+            //Location location = userContext.LocationEntity.Single(id => id.LocationId == locationId);
+            //userContext.LocationEntity.Remove(location);
+            userContext.SaveChanges();
+        }
+        public void UpdateChanges(Location location)//update
+        {
+            //try
             {
-                userContext.Entry(location).State = EntityState.Modified;
+                //userContext.Entry(location).State = EntityState.Modified;
+                SqlParameter id = new SqlParameter("@LocationId", location.LocationId);
+                SqlParameter city = new SqlParameter("@CityName", location.CityName);
+                SqlParameter district = new SqlParameter("@DistrictName", location.DistrictName);
+                var datainfo = userContext.Database.ExecuteSqlCommand("Location_Update @LocationId,@DistrictName, @CityName", district, city,id);
                 userContext.SaveChanges();
             }
-            catch(Exception)
+            //catch(Exception)
             {
 
             }
         }
-        //public static List<Location> list = new List<Location>();
-        //static LocationRepository()
-        //{
-        //    list.Add(new Location { LocationId = 10, LocationName = "Erode" });
-        //    list.Add(new Location { LocationId = 11, LocationName = "Salem" });
-        //    list.Add(new Location { LocationId = 12, LocationName = "Trichy" });
-        //}
-        //public static IEnumerable<Location> GetLocation()
-        //{
-        //    return list;
-        //}
-        //public static void Add(Location cab)
-        //{
-        //    list.Add(cab);
-        //}
-        //public static void Delete(int locationId)
-        //{
-        //    Location cab = GetLocationById(locationId);
-        //    if (cab != null)
-        //        list.Remove(cab);
-        //}
-        //public static void Update(Location cab)
-        //{
-        //    Location locationEntity = list.Find(id => id.LocationId == cab.LocationId);
-        //    locationEntity.LocationName = cab.LocationName;
-        //}
-        //public static Location GetLocationById(int locationId)
-        //{
-        //    return list.Find(id => id.LocationId == locationId);
-        //}
     }
 }

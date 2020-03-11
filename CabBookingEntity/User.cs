@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
 namespace CabBookingEntity
@@ -24,7 +25,7 @@ namespace CabBookingEntity
         [Required]
         [StringLength(26)]
         public string LastName { get; set; }
-        [Required]
+        [Required]    
         public long MobileNumber { get; set; }
         [Required]
         [MaxLength(30)]
@@ -32,5 +33,7 @@ namespace CabBookingEntity
         [Required]
         [MaxLength(30)]
         public string Password { get; set; }
+
+        public ICollection<Cab> Cab { get; set; }
     }
 }

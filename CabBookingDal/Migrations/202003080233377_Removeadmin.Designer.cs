@@ -7,13 +7,13 @@ namespace CabBookingDal.Migrations
     using System.Resources;
     
     [GeneratedCode("EntityFramework.Migrations", "6.4.0")]
-    public sealed partial class admin : IMigrationMetadata
+    public sealed partial class Removeadmin : IMigrationMetadata
     {
-        private readonly ResourceManager Resources = new ResourceManager(typeof(admin));
+        private readonly ResourceManager Resources = new ResourceManager(typeof(Removeadmin));
         
         string IMigrationMetadata.Id
         {
-            get { return "202003020415464_admin"; }
+            get { return "202003080233377_Removeadmin"; }
         }
         
         string IMigrationMetadata.Source

@@ -11,6 +11,7 @@ namespace OnlineCabBooking.Models
                 config.CreateMap<SignUpVM, User>();
                 config.CreateMap<SignInVM, User>();
                 config.CreateMap<LocationVM, Location>();
+                config.CreateMap<SignUpNextVM, Cab>();
             });
         }
     }

@@ -6,9 +6,9 @@ using System.Web.Mvc;
 
 namespace OnlineCabBooking.Controllers
 {
-    public class HomeController : Controller
+    public class DriverController : Controller
     {
-        // GET: Home
+        // GET: Driver
         public ActionResult Index()
         {
             return View();

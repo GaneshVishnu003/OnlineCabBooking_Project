@@ -35,8 +35,7 @@ namespace OnlineCabBooking.Controllers
                     DistrictName = newLocation.DistrictName
                 };
                 UserContext userContext = new UserContext();
-                userContext.LocationEntity.Add(location);
-                userContext.SaveChanges();
+                locationRepository.AddLocation(location);
                 return RedirectToAction("Index");
             }
             return View();

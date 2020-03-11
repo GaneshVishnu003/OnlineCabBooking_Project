@@ -7,7 +7,7 @@
 <h2>@ViewBag.value</h2>
 @using (Html.BeginForm("SignIn", "User", FormMethod.Post))
 {
-
+    @Html.AntiForgeryToken()
     <table>
         <tr>
             <td>

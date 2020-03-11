@@ -5,38 +5,23 @@ using System.Web.Mvc;
 
 namespace OnlineCabBooking.Controllers
 {
+    
     public class AdminController : Controller
     {
         UserRepository userRepository = new UserRepository();
-        // GET: Admin
-        public ActionResult SignIn()
-        {
-            return View();
-        }
-        [HttpPost]
-        public ActionResult SignIn(OnlineCabBooking.Models.AdminSignIn signIn)
-        {
-            bool value = AdminRepository.CheckLogin(signIn.UserName, signIn.Password);
-            if (value)
-            {
-                ViewBag.value = "Logged in Successfully";
-
-                return RedirectToAction("Home");
-            }
-            else
-            {
-                ViewBag.value = "Please enter correct details";
-                return View();
-            }
-        }
         public ActionResult Home()
         {
             return View();
         }
-        public ActionResult Delete(int id)
+        public ActionResult DeleteCustomer(int id)
         {
             userRepository.DeleteUser(id);
-            return RedirectToAction("DisplayUser");
+            return RedirectToAction("DisplayCustomer");
+        }
+        public ActionResult DeleteDriver(int id)
+        {
+            userRepository.DeleteUser(id);
+            return RedirectToAction("DisplayDriver");
         }
         //[HttpGet]
         //public ActionResult Edit(int id)
@@ -50,9 +35,15 @@ namespace OnlineCabBooking.Controllers
         //    userRepository.UpdateChanges(user);
         //    return View();
         //}
-        public ActionResult DisplayUser()
+        //[Authorize]
+        public ActionResult DisplayCustomer()
         {
-            IEnumerable<CabBookingEntity.User> user = UserRepository.GetUserDetails();
+            IEnumerable<CabBookingEntity.User> user = UserRepository.GetCustomerDetails();
+            return View(user);
+        }
+        public ActionResult DisplayDriver()
+        {
+            IEnumerable<CabBookingEntity.User> user = UserRepository.GetDriverDetails();
             return View(user);
         }
     }

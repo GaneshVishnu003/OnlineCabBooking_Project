@@ -7,13 +7,13 @@ namespace CabBookingDal.Migrations
     using System.Resources;
     
     [GeneratedCode("EntityFramework.Migrations", "6.4.0")]
-    public sealed partial class DistrictName : IMigrationMetadata
+    public sealed partial class unique : IMigrationMetadata
     {
-        private readonly ResourceManager Resources = new ResourceManager(typeof(DistrictName));
+        private readonly ResourceManager Resources = new ResourceManager(typeof(unique));
         
         string IMigrationMetadata.Id
         {
-            get { return "202003030841267_DistrictName"; }
+            get { return "202003060403423_unique"; }
         }
         
         string IMigrationMetadata.Source

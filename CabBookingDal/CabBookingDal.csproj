@@ -56,22 +56,37 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="AdminRepository.cs" />
-    <Compile Include="Migrations\202002281055122_InitialCreate.cs" />
-    <Compile Include="Migrations\202002281055122_InitialCreate.designer.cs">
-      <DependentUpon>202002281055122_InitialCreate.cs</DependentUpon>
+    <Compile Include="Migrations\202003060341516_Initial.cs" />
+    <Compile Include="Migrations\202003060341516_Initial.designer.cs">
+      <DependentUpon>202003060341516_Initial.cs</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\202003020415464_admin.cs" />
-    <Compile Include="Migrations\202003020415464_admin.designer.cs">
-      <DependentUpon>202003020415464_admin.cs</DependentUpon>
+    <Compile Include="Migrations\202003060403423_unique.cs" />
+    <Compile Include="Migrations\202003060403423_unique.designer.cs">
+      <DependentUpon>202003060403423_unique.cs</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\202003030841267_DistrictName.cs" />
-    <Compile Include="Migrations\202003030841267_DistrictName.designer.cs">
-      <DependentUpon>202003030841267_DistrictName.cs</DependentUpon>
+    <Compile Include="Migrations\202003061029385_Cab.cs" />
+    <Compile Include="Migrations\202003061029385_Cab.designer.cs">
+      <DependentUpon>202003061029385_Cab.cs</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\202003040850077_Unique.cs" />
-    <Compile Include="Migrations\202003040850077_Unique.designer.cs">
-      <DependentUpon>202003040850077_Unique.cs</DependentUpon>
+    <Compile Include="Migrations\202003061112563_CabType.cs" />
+    <Compile Include="Migrations\202003061112563_CabType.designer.cs">
+      <DependentUpon>202003061112563_CabType.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202003061354466_mig.cs" />
+    <Compile Include="Migrations\202003061354466_mig.designer.cs">
+      <DependentUpon>202003061354466_mig.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202003080233377_Removeadmin.cs" />
+    <Compile Include="Migrations\202003080233377_Removeadmin.designer.cs">
+      <DependentUpon>202003080233377_Removeadmin.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202003110507078_Stored.cs" />
+    <Compile Include="Migrations\202003110507078_Stored.designer.cs">
+      <DependentUpon>202003110507078_Stored.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202003110759216_v-1.cs" />
+    <Compile Include="Migrations\202003110759216_v-1.designer.cs">
+      <DependentUpon>202003110759216_v-1.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="UserContext.cs" />
@@ -90,17 +105,29 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\202002281055122_InitialCreate.resx">
-      <DependentUpon>202002281055122_InitialCreate.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\202003060341516_Initial.resx">
+      <DependentUpon>202003060341516_Initial.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\202003020415464_admin.resx">
-      <DependentUpon>202003020415464_admin.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\202003060403423_unique.resx">
+      <DependentUpon>202003060403423_unique.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\202003030841267_DistrictName.resx">
-      <DependentUpon>202003030841267_DistrictName.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\202003061029385_Cab.resx">
+      <DependentUpon>202003061029385_Cab.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\202003040850077_Unique.resx">
-      <DependentUpon>202003040850077_Unique.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\202003061112563_CabType.resx">
+      <DependentUpon>202003061112563_CabType.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202003061354466_mig.resx">
+      <DependentUpon>202003061354466_mig.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202003080233377_Removeadmin.resx">
+      <DependentUpon>202003080233377_Removeadmin.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202003110507078_Stored.resx">
+      <DependentUpon>202003110507078_Stored.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202003110759216_v-1.resx">
+      <DependentUpon>202003110759216_v-1.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

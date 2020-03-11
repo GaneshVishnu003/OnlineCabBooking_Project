@@ -3,9 +3,14 @@
     using System;
     using System.Data.Entity.Migrations;
     
-    public partial class admin : DbMigration
+    public partial class Removeadmin : DbMigration
     {
         public override void Up()
+        {
+            DropTable("dbo.Admins");
+        }
+        
+        public override void Down()
         {
             CreateTable(
                 "dbo.Admins",
@@ -17,21 +22,6 @@
                     })
                 .PrimaryKey(t => t.AdminId);
             
-            CreateTable(
-                "dbo.Locations",
-                c => new
-                    {
-                        LocationId = c.Int(nullable: false, identity: true),
-                        LocationName = c.String(nullable: false),
-                    })
-                .PrimaryKey(t => t.LocationId);
-            
-        }
-        
-        public override void Down()
-        {
-            DropTable("dbo.Locations");
-            DropTable("dbo.Admins");
         }
     }
 }

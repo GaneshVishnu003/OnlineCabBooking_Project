@@ -1,9 +1,11 @@
 ﻿
 @{
     ViewBag.Title = "AdminHome";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
 }
 
 <h2>AdminHome</h2>
-<div>@Html.ActionLink("View Users","DisplayUser")</div>
+<div>@Html.ActionLink("View Customers","DisplayCustomer")</div>
+<div>@Html.ActionLink("View Drivers", "DisplayDriver")</div>
 <div>@Html.ActionLink("Handle Locations", "Index","Location")</div>
 

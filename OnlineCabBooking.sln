@@ -9,6 +9,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CabBookingEntity", "CabBook
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CabBookingDal", "CabBookingDal\CabBookingDal.csproj", "{B3D570BB-F6E5-4963-A9DA-70B35A92E8FF}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CabBookingBL", "CabBookingBL\CabBookingBL.csproj", "{8FAB7F34-5CB0-4BD3-A056-31A7C08DCFC7}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -27,6 +29,10 @@ Global
 		{B3D570BB-F6E5-4963-A9DA-70B35A92E8FF}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{B3D570BB-F6E5-4963-A9DA-70B35A92E8FF}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{B3D570BB-F6E5-4963-A9DA-70B35A92E8FF}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8FAB7F34-5CB0-4BD3-A056-31A7C08DCFC7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8FAB7F34-5CB0-4BD3-A056-31A7C08DCFC7}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8FAB7F34-5CB0-4BD3-A056-31A7C08DCFC7}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8FAB7F34-5CB0-4BD3-A056-31A7C08DCFC7}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

@@ -1,0 +1,54 @@
+﻿@model OnlineCabBooking.Models.SignUpNextVM
+
+@{
+    ViewBag.Title = "SignUpNext";
+}
+<h2>SignUpNext</h2>
+@if (!IsPost)
+{
+    using (Html.BeginForm("SignUpNext", "User", FormMethod.Post))
+    {
+        @Html.AntiForgeryToken()
+        <table cellpadding="10">
+            <tr>
+                <td>
+                    @Html.Label("Registration Number")
+                </td>
+                <td>
+                    @Html.TextBoxFor(Model => Model.CabNumber)
+                    @Html.ValidationMessageFor(model => model.CabNumber)
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    @Html.Label("Cab Type")
+                </td>
+                <td>
+                    @Html.DropDownListFor(Model => Model.TypeId, (IEnumerable<SelectListItem>)ViewBag.Type, "Select Type")
+                    @Html.ValidationMessageFor(model => model.TypeId, null)
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    @Html.Label("Licence Number")
+                </td>
+                <td>
+                    @Html.TextBoxFor(Model => Model.LicenceNumber)
+                    @Html.ValidationMessageFor(model => model.LicenceNumber)
+                </td>
+            </tr>
+            <tr>
+                <td>
+                </td>
+                <td>
+                    <input type="submit" />
+                </td>
+            </tr>
+        </table>
+    }
+}
+else
+{
+    <h2>@ViewBag.success</h2>
+}
+

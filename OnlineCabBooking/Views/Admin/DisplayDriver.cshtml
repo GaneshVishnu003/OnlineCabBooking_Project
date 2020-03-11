@@ -1,0 +1,29 @@
+﻿@model IEnumerable<CabBookingEntity.User>
+
+@{
+    ViewBag.Title = "DisplayUser";
+}
+
+<h2>DisplayUser</h2>
+<table>
+    <thead>customers</thead>
+    <tr><td>First Name</td><td>Last Name</td><td>Mobile</td><td>Mail Id</td></tr>
+    @foreach (var result in Model)
+    {
+        <tr>
+            <td>@result.FirstName</td>
+            <td>@result.LastName</td>
+            <td>@result.MobileNumber</td>
+            <td>@result.MailId</td>
+
+            @foreach (var item in result.Cab)
+            {
+                <td>@item.CabNumber</td>
+            }
+
+            <td>@Html.ActionLink("Delete", "DeleteDriver", new { id = result.UserId })</td>
+        </tr>
+    }
+</table>
+
+

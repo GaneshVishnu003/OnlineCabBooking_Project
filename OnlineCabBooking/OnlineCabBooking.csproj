@@ -132,8 +132,9 @@
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Controllers\AdminController.cs" />
+    <Compile Include="Controllers\CustomerController.cs" />
+    <Compile Include="Controllers\DriverController.cs" />
     <Compile Include="Controllers\ErrorController.cs" />
-    <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\LocationController.cs" />
     <Compile Include="Controllers\UserController.cs" />
     <Compile Include="Global.asax.cs">
@@ -143,6 +144,7 @@
     <Compile Include="Models\AutoMap.cs" />
     <Compile Include="Models\LocationVM.cs" />
     <Compile Include="Models\SignInVM.cs" />
+    <Compile Include="Models\SignUpNextVM.cs" />
     <Compile Include="Models\SignUpVM.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -182,21 +184,25 @@
     <Content Include="Views\_ViewStart.cshtml" />
     <Content Include="Views\Shared\Error.cshtml" />
     <Content Include="Views\Shared\_Layout.cshtml" />
-    <Content Include="Views\Home\Index.cshtml" />
+    <Content Include="Views\User\Index.cshtml" />
     <Content Include="Views\Shared\_MasterPage.cshtml" />
     <Content Include="Views\User\SignUp.cshtml" />
     <Content Include="Views\User\SignIn.cshtml" />
-    <Content Include="Views\Admin\SignIn.cshtml" />
     <Content Include="Views\Admin\Home.cshtml" />
     <Content Include="Views\Error\ErrorAction.cshtml" />
-    <Content Include="Views\Admin\Edit.cshtml" />
-    <Content Include="Views\Admin\DisplayUser.cshtml" />
+    <Content Include="Views\Admin\DisplayCustomer.cshtml" />
     <Content Include="Views\Location\Index.cshtml" />
     <Content Include="Views\Location\AddLocation.cshtml" />
     <Content Include="Views\Location\Edit.cshtml" />
+    <Content Include="Views\User\SignUpNext.cshtml" />
+    <Content Include="Views\Shared\_AdminLayout.cshtml" />
+    <Content Include="Views\Admin\DisplayDriver.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="Views\Customer\" />
+    <Folder Include="Views\Driver\" />
+    <Folder Include="Views\Home\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff2" />

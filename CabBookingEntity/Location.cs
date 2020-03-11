@@ -1,4 +1,5 @@
 ﻿using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace CabBookingEntity
 {
@@ -6,9 +7,11 @@ namespace CabBookingEntity
     {
         public int LocationId { get; set; }
         [Required]
-        
+        [StringLength(20)]
+        [Index("OfficialIds", 1)]
         public string CityName { get; set; }
         [Required]
         public string DistrictName { get; set; }
+
     }
 }

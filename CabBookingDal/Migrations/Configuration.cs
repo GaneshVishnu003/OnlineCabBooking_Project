@@ -1,8 +1,6 @@
 ﻿namespace CabBookingDal.Migrations
 {
-    using CabBookingEntity;
     using System;
-    using System.Collections.Generic;
     using System.Data.Entity;
     using System.Data.Entity.Migrations;
     using System.Linq;
@@ -22,15 +20,4 @@
             //  to avoid creating duplicate seed data.
         }
     }
-    //public class RoleInitializer:DropCreateDatabaseAlways<UserContext>
-    //{
-    //    protected override void Seed(UserContext context)
-    //    {
-    //        List<Role> roles = new List<Role>();
-    //        roles.Add(new Role() { RoleID = 1, RoleName = "Driver" });
-    //        roles.Add(new Role() { RoleID = 2, RoleName = "Customer"});
-    //        context.Role.AddRange(roles);
-    //        base.Seed(context);
-    //    }
-    //}
 }

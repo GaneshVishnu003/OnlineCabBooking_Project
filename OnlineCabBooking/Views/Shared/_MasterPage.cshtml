@@ -8,13 +8,12 @@
         header {
             height: 50px;
             width: 100%;
-            background-color: orange;
+            background-color: Highlight;
         }
 
         nav {
-            float: left;
-            width: 200px;
-            height: 100%;
+            width: 100%;
+            height: 50px;
             background-color: darkseagreen;
         }
     </style>
@@ -24,11 +23,9 @@
         <h1>Online Cab Booking</h1>
     </header>
     <nav>
-        @Html.ActionLink("Sign In", "SignIn", "User")<br /><br />
-        @Html.ActionLink("Sign Up", "SignUp", "User")<br /><br />
-        <div style="padding-top:500px;">
-            @Html.ActionLink("AdminLogin", "SignIn", "Admin")
-        </div>
+        @Html.ActionLink("Sign In", "SignIn", "User") |
+        @Html.ActionLink("Sign Up", "SignUp", "User")
+       
     </nav>
     <div>
         @RenderBody()

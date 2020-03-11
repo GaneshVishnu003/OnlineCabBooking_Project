@@ -2,7 +2,19 @@
 @{
     ViewBag.Title = "ErrorAction";
 }
+@model System.Web.Mvc.HandleErrorInfo
+    <!DOCTYPE html>
+<html>
+<head>
+    <titile>Error</titile>
+</head>
+<body>
+    <h4>Error Occurred</h4>
+    <h2>
+        Exception Details: @Model.Exception
+    </h2>
+</body>
+</html>
 
-<h2>ErrorAction</h2>
-<h4>Error Occurred</h4>
+
 

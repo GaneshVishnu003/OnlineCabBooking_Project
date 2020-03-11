@@ -2,11 +2,17 @@
 using CabBookingEntity;
 using System.Web.Mvc;
 using OnlineCabBooking.Models;
+using System.Collections.Generic;
+
 namespace OnlineCabBooking.Controllers
 {
    // [HandleError]
     public class UserController : Controller
     {
+        public ActionResult Index()
+        {
+            return View();
+        }
         // GET: User
         public ActionResult SignUp()
         {
@@ -14,24 +20,45 @@ namespace OnlineCabBooking.Controllers
             return View();
         }
         [HttpPost]
+        [ValidateAntiForgeryToken]
         public ActionResult SignUp(SignUpVM signUp)
         {
            ViewBag.Roles = new SelectList(UserRepository.GetRoles(), "RoleId", "RoleName");
             if (ModelState.IsValid)
             {
                 var user = AutoMapper.Mapper.Map<SignUpVM, User>(signUp);
-                //User user = new User();
-                //user.FirstName = signUp.FirstName;
-                //user.LastName = signUp.LastName;
-                //user.RoleId = signUp.RoleId;
-                //user.MailId = signUp.MailId;
-                //user.MobileNumber = signUp.MobileNumber;
-                //user.Password = signUp.Password;
                 UserRepository userRepository = new UserRepository();
                 userRepository.SignUp(user);
                // return View();
             }
-            ViewBag.success = "Logged in successfully";
+           
+            if (signUp.RoleId == 2)
+            {
+                int id = UserRepository.GetUserId(signUp.MailId);
+                TempData["id"] = id;
+                return RedirectToAction("SignUpNext");
+            }
+            else
+            {
+                ViewBag.success = "Logged in successfully as Customer";
+                return View();
+            }
+        }
+        public ActionResult SignUpNext()
+        {
+            ViewBag.Type = new SelectList(UserRepository.GetCabType(), "TypeId", "TypeName");
+            return View();
+        }
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult SignUpNext(SignUpNextVM signUp)
+        {
+            ViewBag.Type = new SelectList(UserRepository.GetCabType(), "TypeId", "TypeName");
+            signUp.UserId = (int)TempData["id"];
+            var cab = AutoMapper.Mapper.Map<SignUpNextVM,Cab>(signUp);
+            UserRepository userRepository = new UserRepository();
+            userRepository.SignUpNext(cab);
+            ViewBag.success = "Logged in successfully as Driver";
             return View();
         }
         public ActionResult SignIn()
@@ -39,25 +66,40 @@ namespace OnlineCabBooking.Controllers
             return View();
         }
         [HttpPost]
-        public ActionResult SignIn(OnlineCabBooking.Models.SignInVM signIn)
+        [ValidateAntiForgeryToken]
+        public ActionResult SignIn(SignInVM signIn)
         {
-            int value=UserRepository.CheckLogin(signIn.MailId,signIn.Password);
-            if (value==1)
+            var user = AutoMapper.Mapper.Map<SignInVM, User>(signIn);
+          
+            User value = UserRepository.CheckLogin(user);
+            if (value != null)
             {
-                ViewBag.value = "Logged in Successfully as Customer";
+                if (value.RoleId == 1)
+                {
+                    ViewBag.value = "Logged in Successfully as Customer";
+                    return View();     //need to change
+                }
+                else if (value.RoleId == 2)
+                {
+                    ViewBag.value = "Logged in successfully as Driver";
+                    return View();   //need to change
+                }
+                else if (value.RoleId == 3)
+                {
+                    ViewBag.value = "Logged in successfully as Admin";
+                    return RedirectToAction("Home", "Admin");
+                }
+                else
+                {
+                    ViewBag.value = "Please enter correct details";
+                    return View();
+                }
             }
-            else if(value==2)
+            else
             {
-                ViewBag.value = "Logged in successfully as Driver";
-            }
-            else if(value==3)
-            {
-                ViewBag.value = "Logged in successfully as Admin";
-                return RedirectToAction("Index", "Admin");
-            }
-       else
                 ViewBag.value = "Please enter correct details";
                 return View();
+            }
         }
     }
 }
