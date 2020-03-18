@@ -1,0 +1,22 @@
+﻿@model OnlineCabBooking.Models.AreaVM
+
+@{
+    ViewBag.Title = "Edit";
+}
+
+<h2>Edit @Model.AreaName</h2>
+@using (Html.BeginForm("Edit", "Area", FormMethod.Post))
+{
+    @Html.HiddenFor(Model => Model.LocationId)
+    @Html.HiddenFor(Model => Model.AreaId)
+    <table>
+        <tr>
+            <td>@Html.Label("Area")</td>
+            <td>@Html.TextBoxFor(Model=>Model.AreaName)
+                  @Html.ValidationMessageFor(Model=>Model.AreaName)
+            </td>
+        </tr>
+        <tr><td></td><td><input type="submit" /></td></tr>
+    </table>
+}
+

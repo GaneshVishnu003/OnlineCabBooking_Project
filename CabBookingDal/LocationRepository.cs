@@ -1,10 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Data.Entity;
+﻿using System.Collections.Generic;
 using System.Data.SqlClient;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using CabBookingEntity;
 
 namespace CabBookingDal
@@ -17,14 +13,35 @@ namespace CabBookingDal
             IEnumerable<Location> locations = userContext.LocationEntity.ToList();
             return locations;
         }
+        //area
+        public IEnumerable<Area> GetArea(int id)
+        {
+            return userContext.Area.Where(value => value.LocationId == id).ToList();
+        }
+        public IEnumerable<Area> DropOff(int id)
+        {
+            int locationId = userContext.Area.Where(value => value.AreaId == id).FirstOrDefault().LocationId;
+            return userContext.Area.Where(value=>value.AreaId != id && value.LocationId==locationId).ToList();
+        }
 
         public void AddLocation(Location location)   //new location
         {
-            SqlParameter city = new SqlParameter("@CityName", location.CityName);
-            SqlParameter district = new SqlParameter("@DistrictName", location.DistrictName);
-            var data = userContext.Database.ExecuteSqlCommand("Location_Insert @DistrictName, @CityName",district,city);
-            //userContext.LocationEntity.Add(location);
-            userContext.SaveChanges();
+            using (var transaction = userContext.Database.BeginTransaction())
+            {
+                try
+                {
+                    SqlParameter city = new SqlParameter("@CityName", location.CityName);
+                    SqlParameter district = new SqlParameter("@DistrictName", location.DistrictName);
+                    var data = userContext.Database.ExecuteSqlCommand("Location_Insert @DistrictName, @CityName", district, city);
+                    //userContext.LocationEntity.Add(location);    //previous create
+                    //userContext.SaveChanges();
+                    transaction.Commit();
+                }
+                catch(System.Exception)
+                {
+                    transaction.Rollback();
+                }
+            }
         }
         public Location GetlocationById(int locationId)//edit
         {
@@ -32,26 +49,38 @@ namespace CabBookingDal
         }
         public void DeleteLocation(int locationId)//delete
         {
-            SqlParameter id = new SqlParameter("@LocationId", locationId);
-            var data = userContext.Database.ExecuteSqlCommand("Location_Delete @LocationId", id);
-            //Location location = userContext.LocationEntity.Single(id => id.LocationId == locationId);
-            //userContext.LocationEntity.Remove(location);
-            userContext.SaveChanges();
+            using (var transaction = userContext.Database.BeginTransaction())
+            {
+                try
+                {
+                    SqlParameter id = new SqlParameter("@LocationId", locationId);
+                    var data = userContext.Database.ExecuteSqlCommand("Location_Delete @LocationId", id);
+                    transaction.Commit();
+                }
+                catch (System.Exception)
+                {
+                    transaction.Rollback();
+                }
+            }
         }
         public void UpdateChanges(Location location)//update
         {
-            //try
+            using (var transaction = userContext.Database.BeginTransaction())
             {
-                //userContext.Entry(location).State = EntityState.Modified;
-                SqlParameter id = new SqlParameter("@LocationId", location.LocationId);
-                SqlParameter city = new SqlParameter("@CityName", location.CityName);
-                SqlParameter district = new SqlParameter("@DistrictName", location.DistrictName);
-                var datainfo = userContext.Database.ExecuteSqlCommand("Location_Update @LocationId,@DistrictName, @CityName", district, city,id);
-                userContext.SaveChanges();
-            }
-            //catch(Exception)
-            {
-
+                try
+                {
+                    //userContext.Entry(location).State = EntityState.Modified;
+                    SqlParameter id = new SqlParameter("@LocationId", location.LocationId);
+                    SqlParameter city = new SqlParameter("@CityName", location.CityName);
+                    SqlParameter district = new SqlParameter("@DistrictName", location.DistrictName);
+                    var datainfo = userContext.Database.ExecuteSqlCommand("Location_Update @LocationId,@DistrictName, @CityName", district, city, id);
+                    //userContext.SaveChanges();
+                    transaction.Commit();
+                }
+                catch (System.Exception)
+                {
+                    transaction.Rollback();
+                }
             }
         }
     }

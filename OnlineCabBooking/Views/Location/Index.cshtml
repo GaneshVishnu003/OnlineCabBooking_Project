@@ -12,7 +12,7 @@
     <tr><td>City Name</td><td>District Name</td></tr>
     @foreach (var result in Model)
     {
-        <tr><td>@result.CityName</td><td>@result.DistrictName</td><td>@Html.ActionLink("Edit", "Edit", new { id = result.LocationId })</td><td>@Html.ActionLink("Delete","Delete", new { id = result.LocationId })</td></tr>
+        <tr><td>@result.CityName</td><td>@result.DistrictName</td><td>@Html.ActionLink("Edit", "Edit", new { id = result.LocationId })</td><td>@Html.ActionLink("Delete","Delete", new { id = result.LocationId },new { Onclick = "return confirm('Are You sure to delete')" })</td><td>@Html.ActionLink("Manage Areas","ManageArea","Area", new { id = result.LocationId },new { @class = "Index" })</td></tr>
     }
     <tr></tr>
 </table>

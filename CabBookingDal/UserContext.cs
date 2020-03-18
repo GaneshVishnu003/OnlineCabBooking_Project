@@ -19,13 +19,14 @@ namespace CabBookingDal
         public DbSet<Location> LocationEntity { get; set; }
         public DbSet<Cab> CabEntity { get; set; }
         public DbSet<CabType> CabType { get; set; }
+        public DbSet<Area> Area { get; set; }
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
             modelBuilder.Entity<User>().HasIndex(u => u.MailId).IsUnique();
-            modelBuilder.Entity<Location>().HasIndex(u => u.CityName).IsUnique();
 
             modelBuilder.Entity<Location>().MapToStoredProcedures();
+            modelBuilder.Entity<Area>().MapToStoredProcedures();
         }
     }
 }

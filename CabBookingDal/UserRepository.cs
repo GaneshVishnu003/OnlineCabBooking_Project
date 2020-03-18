@@ -31,12 +31,14 @@ namespace CabBookingDal
         }
         public void SignUp(User user)
         {
+            using(var transaction=userContext.Database.BeginTransaction())
             //UserContext userContext = new UserContext();
             userContext.UserEntity.Add(user);
             userContext.SaveChanges();
         }
         public void SignUpNext(Cab cab)
         {
+            cab.RequestStatus = "Requested";
             userContext.CabEntity.Add(cab);
             userContext.SaveChanges();
         }
@@ -47,12 +49,12 @@ namespace CabBookingDal
                 return userContext.UserEntity.Where(data => data.MailId == user.MailId && data.Password == user.Password).SingleOrDefault();
             }
         }
-        public static IEnumerable<CabBookingEntity.User> GetCustomerDetails()
+        public static IEnumerable<User> GetCustomerDetails()
         {
             UserContext userContext = new UserContext();
             return userContext.UserEntity.Where(role=>role.RoleId==1).ToList();
         }
-        public static IEnumerable<CabBookingEntity.User> GetDriverDetails()
+        public static IEnumerable<User> GetDriverDetails()
         {
             UserContext userContext = new UserContext();
             return userContext.UserEntity.Where(role => role.RoleId == 2).Include("Cab").ToList();

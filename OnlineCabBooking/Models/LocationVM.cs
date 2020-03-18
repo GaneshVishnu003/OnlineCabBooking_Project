@@ -14,6 +14,6 @@ namespace OnlineCabBooking.Models
         public string CityName { get; set; }
         [Required]
         [StringLength(30)]
-        public string DistrictName { get; set; }
+        public string DistrictName  { get; set; }
     }
 }

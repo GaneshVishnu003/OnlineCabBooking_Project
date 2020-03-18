@@ -1,0 +1,21 @@
+﻿@model OnlineCabBooking.Models.AreaVM
+
+@{
+    ViewBag.Title = "AddArea";
+    //int id = (int)TempData["LocationId"];
+}
+<h2>AddArea</h2>
+@*@Model => Model.LocationId = (int)TempData["LocationId"];*@
+@using (Html.BeginForm("AddArea", "Area", FormMethod.Post))
+{
+    <table>
+        <tr>
+            <td>@Html.DisplayNameFor(Model => Model.AreaName)</td>
+            <td>@Html.TextBoxFor(Model => Model.AreaName)</td>
+            <td>@Html.ValidationMessageFor(model => model.AreaName)</td>
+        </tr>
+        <tr><td></td><td><input type="submit" /></td></tr>
+    </table>
+
+}
+

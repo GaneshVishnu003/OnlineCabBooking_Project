@@ -1,7 +1,7 @@
 ﻿
 namespace CabBookingBL
 {
-    class DriverBL
+    public class DriverBL
     {
 
     }

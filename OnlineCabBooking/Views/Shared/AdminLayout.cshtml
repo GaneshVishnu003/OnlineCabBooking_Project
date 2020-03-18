@@ -1,0 +1,11 @@
+﻿@{
+    Layout = "~/Views/Shared/_MasterPage.cshtml";
+}
+<div>
+    <ul>
+        <li style="display:inline;">@Html.ActionLink("Home", "Home", "Admin")</li>
+    </ul>
+</div>
+<div>
+    @RenderBody()
+</div>

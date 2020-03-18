@@ -1,23 +1,24 @@
-﻿using CabBookingDal;
+﻿using CabBookingBL;
 using CabBookingEntity;
-using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Web;
 using System.Web.Mvc;
 
 namespace OnlineCabBooking.Controllers
 {
     public class LocationController : Controller
     {
-        LocationRepository locationRepository = new LocationRepository();
-        // GET: Location
+        LocationBL locationBL = new LocationBL();
+
         public ActionResult Index()
         {
-
-            // LocationRepository locationRepository = new LocationRepository();
-            IEnumerable<Location> location = locationRepository.GetLocation();
+            IEnumerable<Location> location = locationBL.GetLocation();
             return View(location);
+        }
+
+        public ActionResult DisplayLocation()
+        {
+            ViewBag.Location = locationBL.GetLocation();
+            return View();
         }
         [HttpGet]
         public ActionResult AddLocation()
@@ -25,7 +26,7 @@ namespace OnlineCabBooking.Controllers
             return View();
         }
         [HttpPost]
-        public ActionResult AddLocation(OnlineCabBooking.Models.LocationVM newLocation)
+        public ActionResult AddLocation(Models.LocationVM newLocation)
         {
             if (ModelState.IsValid)
             {
@@ -34,8 +35,7 @@ namespace OnlineCabBooking.Controllers
                     CityName = newLocation.CityName,
                     DistrictName = newLocation.DistrictName
                 };
-                UserContext userContext = new UserContext();
-                locationRepository.AddLocation(location);
+                locationBL.AddLocation(location);
                 return RedirectToAction("Index");
             }
             return View();
@@ -43,8 +43,7 @@ namespace OnlineCabBooking.Controllers
 
         public ActionResult Edit(int id)
         {
-            // LocationRepository location
-            Location location = locationRepository.GetlocationById(id);
+            Location location = locationBL.GetlocationById(id);
             Models.LocationVM locationVM = new Models.LocationVM()
             {
                 LocationId = location.LocationId,
@@ -56,25 +55,33 @@ namespace OnlineCabBooking.Controllers
         [HttpPost]
         public ActionResult Edit(Models.LocationVM locationVm)
         {
-            // LocationRepository location
             if (ModelState.IsValid)
             {
                 var location = AutoMapper.Mapper.Map<Models.LocationVM, Location>(locationVm);
-                //Location location = new Location()
-                //{
-                //    LocationId=locationVm.LocationId,
-                //    CityName = locationVm.CityName,
-                //    DistrictName = locationVm.DistrictName
-                //};
-                locationRepository.UpdateChanges(location);
+                locationBL.UpdateChanges(location);
                 return RedirectToAction("Index");
             }
             return View();
         }
         public ActionResult Delete(int id)
         {
-            locationRepository.DeleteLocation(id);
+            locationBL.DeleteLocation(id);
             return RedirectToAction("Index");
         }
+
+
+
+        // Area actions
+        //public ActionResult GetArea(int id)
+        //{
+        //    ViewBag.Area = locationBL.GetArea(id);
+        //    return View();
+        //}
+
+        //public ActionResult DropOff(int id)
+        //{
+        //    ViewBag.Drop= locationBL.DropOff(id);
+        //    return View();
+        //}
     }
 }

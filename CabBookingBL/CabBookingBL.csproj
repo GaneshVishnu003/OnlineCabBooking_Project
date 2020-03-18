@@ -42,9 +42,22 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AdminBL.cs" />
+    <Compile Include="AreaBL.cs" />
+    <Compile Include="LocationBL.cs" />
+    <Compile Include="UserBL.cs" />
     <Compile Include="CustomerBL.cs" />
     <Compile Include="DriverBL.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\CabBookingDal\CabBookingDal.csproj">
+      <Project>{b3d570bb-f6e5-4963-a9da-70b35a92e8ff}</Project>
+      <Name>CabBookingDal</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\CabBookingEntity\CabBookingEntity.csproj">
+      <Project>{cb24f756-763f-47cd-83d3-b65a8f4d8a2d}</Project>
+      <Name>CabBookingEntity</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

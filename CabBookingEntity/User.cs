@@ -34,6 +34,6 @@ namespace CabBookingEntity
         [MaxLength(30)]
         public string Password { get; set; }
 
-        public ICollection<Cab> Cab { get; set; }
+        public ICollection<Cab> Cab { get; set; }           //binding
     }
 }

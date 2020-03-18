@@ -1,0 +1,10 @@
+﻿
+@{
+    ViewBag.Title = "GetArea";
+}
+<h4>Select Pickup Location</h4>
+@foreach(var result in ViewBag.Area)
+{
+    <div>@Html.ActionLink((string)result.AreaName,"DropOff",new { id = result.AreaId })</div>
+}
+

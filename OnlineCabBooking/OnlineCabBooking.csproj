@@ -132,6 +132,7 @@
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Controllers\AdminController.cs" />
+    <Compile Include="Controllers\AreaController.cs" />
     <Compile Include="Controllers\CustomerController.cs" />
     <Compile Include="Controllers\DriverController.cs" />
     <Compile Include="Controllers\ErrorController.cs" />
@@ -141,6 +142,7 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Models\AdminSignIn.cs" />
+    <Compile Include="Models\AreaVM.cs" />
     <Compile Include="Models\AutoMap.cs" />
     <Compile Include="Models\LocationVM.cs" />
     <Compile Include="Models\SignInVM.cs" />
@@ -156,6 +158,8 @@
     <Content Include="Content\bootstrapFlaty.css" />
     <Content Include="Content\bootstrapMint.css" />
     <Content Include="Content\bootstrapYeti.css" />
+    <Content Include="Content\Images\driver.jpg" />
+    <Content Include="Content\StyleSheet.css" />
     <Content Include="favicon.ico" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
@@ -191,12 +195,19 @@
     <Content Include="Views\Admin\Home.cshtml" />
     <Content Include="Views\Error\ErrorAction.cshtml" />
     <Content Include="Views\Admin\DisplayCustomer.cshtml" />
-    <Content Include="Views\Location\Index.cshtml" />
     <Content Include="Views\Location\AddLocation.cshtml" />
     <Content Include="Views\Location\Edit.cshtml" />
     <Content Include="Views\User\SignUpNext.cshtml" />
-    <Content Include="Views\Shared\_AdminLayout.cshtml" />
     <Content Include="Views\Admin\DisplayDriver.cshtml" />
+    <Content Include="Views\Shared\AdminLayout.cshtml" />
+    <Content Include="Views\Location\DisplayLocation.cshtml" />
+    <Content Include="Views\Admin\AddAdmin.cshtml" />
+    <Content Include="Views\Location\Index.cshtml" />
+    <Content Include="Views\Area\GetArea.cshtml" />
+    <Content Include="Views\Area\DropOff.cshtml" />
+    <Content Include="Views\Area\AddArea.cshtml" />
+    <Content Include="Views\Area\ManageArea.cshtml" />
+    <Content Include="Views\Area\Edit.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -218,12 +229,12 @@
     <Content Include="Scripts\jquery-3.4.1.min.map" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\CabBookingDal\CabBookingDal.csproj">
-      <Project>{b3d570bb-f6e5-4963-a9da-70b35a92e8ff}</Project>
-      <Name>CabBookingDal</Name>
+    <ProjectReference Include="..\CabBookingBL\CabBookingBL.csproj">
+      <Project>{8fab7f34-5cb0-4bd3-a056-31a7c08dcfc7}</Project>
+      <Name>CabBookingBL</Name>
     </ProjectReference>
     <ProjectReference Include="..\CabBookingEntity\CabBookingEntity.csproj">
-      <Project>{CB24F756-763F-47CD-83D3-B65A8F4D8A2D}</Project>
+      <Project>{cb24f756-763f-47cd-83d3-b65a8f4d8a2d}</Project>
       <Name>CabBookingEntity</Name>
     </ProjectReference>
   </ItemGroup>

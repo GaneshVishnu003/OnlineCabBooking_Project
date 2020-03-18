@@ -1,0 +1,12 @@
+﻿
+@{
+    ViewBag.Title = "DisplayLocation";
+}
+
+<h2>DisplayLocation</h2>
+    @foreach (var result in ViewBag.Location)
+    {
+        string name = result.CityName;
+    <div>@Html.ActionLink(name, "GetArea","Area",new {id=result.LocationId},null)</div>
+    }
+

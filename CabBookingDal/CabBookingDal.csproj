@@ -56,6 +56,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AreaRepository.cs" />
     <Compile Include="Migrations\202003060341516_Initial.cs" />
     <Compile Include="Migrations\202003060341516_Initial.designer.cs">
       <DependentUpon>202003060341516_Initial.cs</DependentUpon>
@@ -87,6 +88,18 @@
     <Compile Include="Migrations\202003110759216_v-1.cs" />
     <Compile Include="Migrations\202003110759216_v-1.designer.cs">
       <DependentUpon>202003110759216_v-1.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202003140929383_Status.cs" />
+    <Compile Include="Migrations\202003140929383_Status.designer.cs">
+      <DependentUpon>202003140929383_Status.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202003150950100_Area.cs" />
+    <Compile Include="Migrations\202003150950100_Area.designer.cs">
+      <DependentUpon>202003150950100_Area.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202003170513015_AreaCrud.cs" />
+    <Compile Include="Migrations\202003170513015_AreaCrud.designer.cs">
+      <DependentUpon>202003170513015_AreaCrud.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="UserContext.cs" />
@@ -128,6 +141,15 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202003110759216_v-1.resx">
       <DependentUpon>202003110759216_v-1.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202003140929383_Status.resx">
+      <DependentUpon>202003140929383_Status.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202003150950100_Area.resx">
+      <DependentUpon>202003150950100_Area.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202003170513015_AreaCrud.resx">
+      <DependentUpon>202003170513015_AreaCrud.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

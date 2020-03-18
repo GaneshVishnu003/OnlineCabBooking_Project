@@ -27,6 +27,7 @@ namespace CabBookingEntity
         [Index("OfficialIds", 2)]
         [StringLength(15)]
         public string LicenceNumber { get; set; }
+        public string RequestStatus { get; set; }
     }
     public class CabType
     {

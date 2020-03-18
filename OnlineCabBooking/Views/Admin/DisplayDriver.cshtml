@@ -2,6 +2,7 @@
 
 @{
     ViewBag.Title = "DisplayUser";
+    Layout = "~/Views/Shared/AdminLayout.cshtml";
 }
 
 <h2>DisplayUser</h2>
@@ -21,7 +22,7 @@
                 <td>@item.CabNumber</td>
             }
 
-            <td>@Html.ActionLink("Delete", "DeleteDriver", new { id = result.UserId })</td>
+            <td>@Html.ActionLink("Delete", "DeleteDriver", new { id = result.UserId },new { Onclick = "return confirm('Are You sure to delete')" })</td>
         </tr>
     }
 </table>

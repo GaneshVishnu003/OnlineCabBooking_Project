@@ -12,5 +12,6 @@ namespace OnlineCabBooking.Models
         [Required]
         [StringLength(15)]
         public string LicenceNumber { get; set; }
+        public string RequestStatus { get; set; }
     }
 }
