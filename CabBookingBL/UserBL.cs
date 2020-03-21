@@ -1,49 +1,47 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Collections.Generic;
 using CabBookingEntity;
 using CabBookingDal;
 using System.Collections;
 
 namespace CabBookingBL
 {
-    public class UserBL
+    public class UserBL : IUser
     {
-        UserRepository userRepository = new UserRepository();
-        public static IEnumerable<Role> GetRoles()
+        IUser userRepository = new UserRepository();        //userrepository instance for user interface
+        public IEnumerable<Role> GetRoles()             //returns the roles for registration
         {
-            return UserRepository.GetRoles();
+            return userRepository.GetRoles();
         }
-        public void SignUp(User user)
+        public void SignUp(User user)               // pass the signup object to repository
         {
             userRepository.SignUp(user);
         }
-
-        public User GetUserById(int userId)
-        {
-            return userRepository.GetUserById(userId);
-        }
-
-        public static int GetUserId(string mailId)
-        {
-            return UserRepository.GetUserId(mailId);
-        }
-
-        public static IEnumerable GetCabType()
-        {
-            return UserRepository.GetCabType();
-        }
-
-        public void SignUpNext(Cab cab)
+        public void SignUpNext(Cab cab)             //driver signup additional registration
         {
             userRepository.SignUpNext(cab);
         }
 
-        public static User CheckLogin(User user)
+
+        public User GetUserById(int userId)         //get the user row by the id
         {
-            return UserRepository.CheckLogin(user);
+            return userRepository.GetUserById(userId);
+        }
+
+        public int GetUserId(string mailId)      //get the user id using the unique mail id
+        {
+            return userRepository.GetUserId(mailId);
+        }
+
+
+        public IEnumerable<CabType> GetCabType()      //get the type of cab while driver registration
+        {
+            return userRepository.GetCabType();
+        }
+
+       
+        public User CheckLogin(User user)        //check for valid login
+        {
+            return userRepository.CheckLogin(user);
         }
     }
 }

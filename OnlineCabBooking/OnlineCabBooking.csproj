@@ -133,8 +133,6 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Controllers\AdminController.cs" />
     <Compile Include="Controllers\AreaController.cs" />
-    <Compile Include="Controllers\CustomerController.cs" />
-    <Compile Include="Controllers\DriverController.cs" />
     <Compile Include="Controllers\ErrorController.cs" />
     <Compile Include="Controllers\LocationController.cs" />
     <Compile Include="Controllers\UserController.cs" />
@@ -232,6 +230,10 @@
     <ProjectReference Include="..\CabBookingBL\CabBookingBL.csproj">
       <Project>{8fab7f34-5cb0-4bd3-a056-31a7c08dcfc7}</Project>
       <Name>CabBookingBL</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\CabBookingDal\CabBookingDal.csproj">
+      <Project>{B3D570BB-F6E5-4963-A9DA-70B35A92E8FF}</Project>
+      <Name>CabBookingDal</Name>
     </ProjectReference>
     <ProjectReference Include="..\CabBookingEntity\CabBookingEntity.csproj">
       <Project>{cb24f756-763f-47cd-83d3-b65a8f4d8a2d}</Project>

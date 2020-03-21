@@ -19,6 +19,8 @@
     background-color:#333;
     color:#fff;
 }
+
+
 .navbar ul{
     padding:0;
     list-style:none;
@@ -41,6 +43,29 @@
     background-position:center center top;*/
     text-align:center;
 }
+.admin_nav {
+    float:left;
+    width:220px;
+    height:300px;
+    background-color:coral;
+}
+
+.admin_nav ul{
+    padding:0;
+    list-style:none;
+}
+
+.admin_nav li{
+   text-align:center;
+}
+
+.admin_nav a{
+    color:#fff;
+    text-decoration:none;
+    font-size:18px;
+    
+}
+
 .showcase h1{
     color:#fff;
     font-size:50px;

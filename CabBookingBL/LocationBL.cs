@@ -4,46 +4,32 @@ using System.Collections.Generic;
 
 namespace CabBookingBL
 {
-    public class LocationBL
+    public class LocationBL : ILocation
     {
-        LocationRepository locationRepository = new LocationRepository();
-        public IEnumerable<Location> GetLocation()
+        ILocation locationRepository = new LocationRepository();    //locationrepository instance for location interface
+        public IEnumerable<Location> GetLocation()          //gets the location      
         {
             return locationRepository.GetLocation();
         }
 
-       
-
-        public void AddLocation(Location location)
+        public void AddLocation(Location location)      //adds new location
         {
             locationRepository.AddLocation(location);
         }
 
-        public Location GetlocationById(int id)
+        public Location GetlocationById(int id)             //gets the respective location according to id
         {
             return locationRepository.GetlocationById(id);
         }
 
-        public void UpdateChanges(Location location)
+        public void UpdateChanges(Location location)        //updates the changes in the location name
         {
             locationRepository.UpdateChanges(location);
         }
 
-        public void DeleteLocation(int id)
+        public void DeleteLocation(int id)              //delete the location in the passed id
         {
             locationRepository.DeleteLocation(id);
-        }
-
-        //area methods
-        public IEnumerable<Area> GetArea(int id)
-        {
-            return locationRepository.GetArea(id);
-        }
-
-        public IEnumerable<Area> DropOff(int id)
-        {
-            //int pickupId = area.AreaId;
-            return locationRepository.DropOff(id);
         }
     }
 }

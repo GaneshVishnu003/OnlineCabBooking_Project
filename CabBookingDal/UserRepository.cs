@@ -5,16 +5,43 @@ using CabBookingEntity;
 
 namespace CabBookingDal
 {
-    public class UserRepository
+    public class UserRepository : IUser,IAdmin
     {
-        UserContext userContext = new UserContext();
-        // public static List<User> UserList = new List<User>();
-        public static IEnumerable<Role> GetRoles()
+        public IEnumerable<Role> GetRoles()             //gets the roles of the users
         {
-            UserContext userContext = new UserContext();
-            return userContext.Role.Where(id => id.RoleID < 3).ToList();
+            using (UserContext userContext = new UserContext())
+            {
+                return userContext.Role.Where(id => id.RoleID < 3).ToList();
+            }
         }
-        public static int GetUserId(string mail)
+         
+        public void SignUp(User user)       //adds the signup values to the properties
+        {
+            using (UserContext userContext = new UserContext())
+            {
+                    userContext.UserEntity.Add(user);
+                    userContext.SaveChanges();
+            }
+        } 
+        public void SignUpNext(Cab cab)         //gets the cab details and driver datails 
+        {
+            using (UserContext userContext = new UserContext())
+            {
+                cab.RequestStatus = "Requested";
+                userContext.CabEntity.Add(cab);
+                userContext.SaveChanges();
+            }
+        }
+
+        public User GetUserById(int userId)             //gets the corresponding user 
+        {
+            using (UserContext userContext = new UserContext())
+            {
+                return userContext.UserEntity.Single(id => id.UserId == userId);
+            }
+        }
+
+        public int GetUserId(string mail)           //gets the user's generated id
         {
             using (UserContext userContext = new UserContext())
             {
@@ -22,54 +49,46 @@ namespace CabBookingDal
             }
         }
 
-        public static IEnumerable<CabType> GetCabType()
+        public IEnumerable<CabType> GetCabType()            //returns the cab types
         {
             using (UserContext userContext = new UserContext())
             {
                 return userContext.CabType.ToList();
             }
         }
-        public void SignUp(User user)
-        {
-            using(var transaction=userContext.Database.BeginTransaction())
-            //UserContext userContext = new UserContext();
-            userContext.UserEntity.Add(user);
-            userContext.SaveChanges();
-        }
-        public void SignUpNext(Cab cab)
-        {
-            cab.RequestStatus = "Requested";
-            userContext.CabEntity.Add(cab);
-            userContext.SaveChanges();
-        }
-        public static User CheckLogin(User user)
+        
+        public User CheckLogin(User user)           //checks the user login
         {
             using (UserContext userContext = new UserContext())
             {
                 return userContext.UserEntity.Where(data => data.MailId == user.MailId && data.Password == user.Password).SingleOrDefault();
             }
         }
-        public static IEnumerable<User> GetCustomerDetails()
+
+        //Admin
+        public IEnumerable<User> GetCustomerDetails()           //returns all customer details
         {
-            UserContext userContext = new UserContext();
-            return userContext.UserEntity.Where(role=>role.RoleId==1).ToList();
+            using (UserContext userContext = new UserContext())
+            {
+                return userContext.UserEntity.Where(role => role.RoleId == 1).ToList();
+            }
         }
-        public static IEnumerable<User> GetDriverDetails()
+        public IEnumerable<User> GetDriverDetails()         //returns all driver details
         {
-            UserContext userContext = new UserContext();
-            return userContext.UserEntity.Where(role => role.RoleId == 2).Include("Cab").ToList();
-        }
-        public User GetUserById(int userId)
-        {
-            UserContext userContext = new UserContext();
-            return userContext.UserEntity.Single(id => id.UserId == userId);
-        }
-        public void DeleteUser(int userId)
-        {
-            User user = userContext.UserEntity.Single(id => id.UserId == userId);
-            userContext.UserEntity.Remove(user);
-            userContext.SaveChanges();
+            using (UserContext userContext = new UserContext())
+            {
+                return userContext.UserEntity.Where(role => role.RoleId == 2).Include("Cab").ToList();
+            }
         }
         
+        public void DeleteUser(int userId)              //deletes the user with corresponding id
+        {
+            using (UserContext userContext = new UserContext())
+            {
+                User user = userContext.UserEntity.Single(id => id.UserId == userId);
+                userContext.UserEntity.Remove(user);
+                userContext.SaveChanges();
+            }
+        }
     }
 }

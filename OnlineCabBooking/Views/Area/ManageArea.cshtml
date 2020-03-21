@@ -12,7 +12,7 @@
     <tr><td>Area Name</td></tr>
     @foreach (var result in ViewBag.GetArea)
     {
-        <tr><td>@result.AreaName</td><td>@Html.ActionLink("Edit", "Edit", new { id = result.AreaId })</td><td>@Html.ActionLink("Delete", "Delete", new { id = result.AreaId },new { Onclick="return confirm('Are You sure to delete')")</td></tr>
+        <tr><td>@result.AreaName</td><td>@Html.ActionLink("Edit", "Edit", new { id = result.AreaId })</td><td>@Html.ActionLink("Delete", "Delete", new { id = result.AreaId },new { Onclick = "return confirm('Are You sure to delete')" })</td></tr>
     }
     <tr></tr>
 </table>

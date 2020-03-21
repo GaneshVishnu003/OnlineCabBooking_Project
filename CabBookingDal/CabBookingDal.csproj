@@ -57,6 +57,10 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AreaRepository.cs" />
+    <Compile Include="IAdmin.cs" />
+    <Compile Include="IArea.cs" />
+    <Compile Include="ILocation.cs" />
+    <Compile Include="IUser.cs" />
     <Compile Include="Migrations\202003060341516_Initial.cs" />
     <Compile Include="Migrations\202003060341516_Initial.designer.cs">
       <DependentUpon>202003060341516_Initial.cs</DependentUpon>

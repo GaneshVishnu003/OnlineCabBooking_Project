@@ -9,24 +9,24 @@ namespace OnlineCabBooking.Controllers
     {
         LocationBL locationBL = new LocationBL();
 
-        public ActionResult Index()
+        public ActionResult Index()         //shows the home page for location handling
         {
             IEnumerable<Location> location = locationBL.GetLocation();
             return View(location);
         }
 
-        public ActionResult DisplayLocation()
+        public ActionResult DisplayLocation()           //displays the location
         {
             ViewBag.Location = locationBL.GetLocation();
             return View();
         }
         [HttpGet]
-        public ActionResult AddLocation()
+        public ActionResult AddLocation()           //adds new location
         {
             return View();
         }
         [HttpPost]
-        public ActionResult AddLocation(Models.LocationVM newLocation)
+        public ActionResult AddLocation(Models.LocationVM newLocation)          //post method for adding location
         {
             if (ModelState.IsValid)
             {
@@ -41,8 +41,9 @@ namespace OnlineCabBooking.Controllers
             return View();
         }
 
-        public ActionResult Edit(int id)
+        public ActionResult Edit(int id)        //edits the current location
         {
+            
             Location location = locationBL.GetlocationById(id);
             Models.LocationVM locationVM = new Models.LocationVM()
             {
@@ -53,7 +54,7 @@ namespace OnlineCabBooking.Controllers
             return View(locationVM);
         }
         [HttpPost]
-        public ActionResult Edit(Models.LocationVM locationVm)
+        public ActionResult Edit(Models.LocationVM locationVm)      //post method for editing the location
         {
             if (ModelState.IsValid)
             {
@@ -63,25 +64,10 @@ namespace OnlineCabBooking.Controllers
             }
             return View();
         }
-        public ActionResult Delete(int id)
+        public ActionResult Delete(int id)              //deletes the corresponding location
         {
             locationBL.DeleteLocation(id);
             return RedirectToAction("Index");
         }
-
-
-
-        // Area actions
-        //public ActionResult GetArea(int id)
-        //{
-        //    ViewBag.Area = locationBL.GetArea(id);
-        //    return View();
-        //}
-
-        //public ActionResult DropOff(int id)
-        //{
-        //    ViewBag.Drop= locationBL.DropOff(id);
-        //    return View();
-        //}
     }
 }

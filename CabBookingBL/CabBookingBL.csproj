@@ -45,8 +45,6 @@
     <Compile Include="AreaBL.cs" />
     <Compile Include="LocationBL.cs" />
     <Compile Include="UserBL.cs" />
-    <Compile Include="CustomerBL.cs" />
-    <Compile Include="DriverBL.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

@@ -1,29 +1,49 @@
 ﻿using CabBookingEntity;
 using CabBookingDal;
 using System;
+using System.Collections.Generic;
 
 namespace CabBookingBL
 {
-    public class AreaBL
+    public class AreaBL : IArea
     {
-        AreaRepository areaRepository = new AreaRepository();
-        public void AddArea(Area area)
+        IArea areaRepository = new AreaRepository();           //repository instance for admin interface object
+        public void AddArea(Area area)              //adds new area
         {
             areaRepository.AddArea(area);
         }
-        public Area GetAreaById(int id)
+
+        public IEnumerable<Area> GetArea(int id)        //shows the areas for pickup
+        {
+            return areaRepository.GetArea(id);
+        }
+
+        public IEnumerable<Area> DropOff(int id)            //gives remaining areas for drop off
+        {
+            //int pickupId = area.AreaId;
+            return areaRepository.DropOff(id);
+        }
+
+
+        public Area GetAreaById(int id)             //gets the corresponding area for the id
         {
             return areaRepository.GetAreaById(id);
         }
 
-        public void UpdateChanges(Area area)
+        public void UpdateChanges(Area area)            //updates the edited area value
         {
             areaRepository.UpdateChanges(area);
         }
 
-        public int DeleteLocation(int id)
+        public int GetLocationByArea(int id)            //gets the corresponding location for the id
         {
-            return areaRepository.DeleteLocation(id);
+            return areaRepository.GetLocationByArea(id);
+        }
+
+
+        public void DeleteArea(int id)               //deletes the corresponding area in the location
+        {
+            areaRepository.DeleteArea(id);
         }
     }
 }

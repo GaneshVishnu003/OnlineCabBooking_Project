@@ -23,8 +23,7 @@ namespace CabBookingDal
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
-            modelBuilder.Entity<User>().HasIndex(u => u.MailId).IsUnique();
-
+            modelBuilder.Entity<User>().HasIndex(u => u.MailId).IsUnique();       
             modelBuilder.Entity<Location>().MapToStoredProcedures();
             modelBuilder.Entity<Area>().MapToStoredProcedures();
         }

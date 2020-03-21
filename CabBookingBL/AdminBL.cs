@@ -4,22 +4,24 @@ using System.Collections.Generic;
 
 namespace CabBookingBL
 {
-    public class AdminBL
+    public class AdminBL : IAdmin
     {
-        UserRepository userRepository = new UserRepository();
-        public void DeleteUser(int id)
+        IAdmin userRepository = new UserRepository();           //repository instance for admin interface object
+        
+
+        public IEnumerable<User> GetCustomerDetails()        //gets the list of the customers
+        {
+           return userRepository.GetCustomerDetails();
+        }
+
+        public IEnumerable<User> GetDriverDetails()              //gets the list of the drivers
+        {
+            return userRepository.GetDriverDetails();
+        }
+
+        public void DeleteUser(int id)              //delete the user using the user id
         {
             userRepository.DeleteUser(id);
-        }
-
-        public static IEnumerable<User> GetCustomerDetails()
-        {
-           return UserRepository.GetCustomerDetails();
-        }
-
-        public static IEnumerable<User> GetDriverDetails()
-        {
-            return UserRepository.GetDriverDetails();
         }
     }
 }

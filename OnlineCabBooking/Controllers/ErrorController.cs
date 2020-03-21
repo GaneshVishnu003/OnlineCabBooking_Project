@@ -9,7 +9,7 @@ namespace OnlineCabBooking.Controllers
     public class ErrorController : Controller
     {
         // GET: Error
-        public ActionResult ErrorAction()
+        public ActionResult ErrorAction()       //shows the page when error is occured
         {
             return View();
         }

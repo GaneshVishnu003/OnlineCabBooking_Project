@@ -16,13 +16,26 @@
     <nav class="navbar">
         <div class="container">
             <div>
-                <ul>
-                    <li>@Html.ActionLink("Home", "Index", "User")</li>
-                    <li>@Html.ActionLink("Sign In", "SignIn", "User")</li>
-                    <li>@Html.ActionLink("Sign Up", "SignUp", "User")</li>
-                    <li>@Html.ActionLink("Logout", "Index", "User", new { Onclick = "return confirm('You Will be logged out.. Are you sure')" })</li>
-                </ul>
-              
+                @if (Session["FirstName"] == null)
+                {
+                    <ul style="float:left">
+                        <li>@Html.ActionLink("Home", "Index", "User")</li>
+                        <li>@Html.ActionLink("Sign In", "SignIn", "User")</li>
+                        <li>@Html.ActionLink("Sign Up", "SignUp", "User")</li>
+                    </ul>
+                }
+                @if (Session["FirstName"] != null)
+                {
+                    <ul style="float:left">
+                        <li>@Html.ActionLink("Home", "Index", "User",null,new { Onclick = "return confirm('Oops...You Will be directed to log out.. Are you sure')" })</li>
+                        <li>@Html.ActionLink("Sign In", "SignIn", "User",null,new { Onclick = "return confirm('Oops...You Will be directed to log out.. Are you sure')" })</li>
+                        <li>@Html.ActionLink("Sign Up", "SignUp", "User",null,new { Onclick = "return confirm('Oops...You Will be directed to log out.. Are you sure')" })</li>
+                    </ul>
+                    <ul style="float:right">
+                        <li><b><i>Hello @Session["FirstName"]! &nbsp;</i></b></li>
+                        <li>@Html.ActionLink("Logout", "LogOut", "User",null, new { Onclick = "return confirm('You Will be logged out.. Are you sure')" })</li>
+                    </ul>
+                }
             </div>
         </div>
     </nav>

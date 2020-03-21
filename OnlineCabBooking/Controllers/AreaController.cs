@@ -1,4 +1,5 @@
 ﻿using CabBookingBL;
+using CabBookingDal;
 using CabBookingEntity;
 using OnlineCabBooking.Models;
 using System.Web.Mvc;
@@ -7,21 +8,21 @@ namespace OnlineCabBooking.Controllers
 {
     public class AreaController : Controller
     {
-        LocationBL locationBL = new LocationBL();
-        AreaBL areaBL = new AreaBL();
-        public ActionResult ManageArea(int id)
+        //LocationBL locationBL = new LocationBL();
+        IArea areaBL= new AreaBL();
+        public ActionResult ManageArea(int id)              //Shows page for managing the areas
         {
-            ViewBag.GetArea = locationBL.GetArea(id);
+            ViewBag.GetArea = areaBL.GetArea(id);
             Session["LocationId"] = id;
 
             return View();
         }
-        public ActionResult AddArea()
+        public ActionResult AddArea()           //adds new area
         {
             return View();
         }
         [HttpPost]
-        public ActionResult AddArea(AreaVM areaVM)
+        public ActionResult AddArea(AreaVM areaVM)      //post method for adding area
         {
            
             if (ModelState.IsValid)
@@ -37,7 +38,7 @@ namespace OnlineCabBooking.Controllers
 
 
 
-        public ActionResult Edit(int id)
+        public ActionResult Edit(int id)        //calls ediit for the area
         {
             Area area = areaBL.GetAreaById(id);
           AreaVM areaVM = new AreaVM()
@@ -49,7 +50,7 @@ namespace OnlineCabBooking.Controllers
             return View(areaVM);
         }
         [HttpPost]
-        public ActionResult Edit(AreaVM areaVm)
+        public ActionResult Edit(AreaVM areaVm)         //post method for editing the area
         {
             if (ModelState.IsValid)
             {
@@ -65,13 +66,15 @@ namespace OnlineCabBooking.Controllers
             }
             return View();
         }
-        public ActionResult Delete(int id)
+        public ActionResult Delete(int id)          //deletes the area in the corresponding id
         {
-           int locationId= areaBL.DeleteLocation(id);
-            return RedirectToAction("ManageArea", new { id = locationId });
+           
+                areaBL.DeleteArea(id);
+            //int locationId = areaBL.GetLocationByArea(id);        //need correction for exception
+            //return RedirectToAction("ManageArea", new { id = locationId });
+
+            return RedirectToAction("index", "location");
         }
-
-
 
 
 
@@ -80,14 +83,14 @@ namespace OnlineCabBooking.Controllers
         public ActionResult GetArea(int id)
         {
            // Session["LocationId"] = id;
-            ViewBag.Area = locationBL.GetArea(id);
+            ViewBag.Area = areaBL.GetArea(id);
             return View();
         }
 
         public ActionResult DropOff(int id)
         {
             Session["pickId"] = id;
-            ViewBag.Drop = locationBL.DropOff(id);
+            ViewBag.Drop = areaBL.DropOff(id);
             return View();
         }
     }
