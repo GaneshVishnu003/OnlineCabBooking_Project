@@ -22,7 +22,7 @@ namespace CabBookingDal
                         transaction.Commit();           //transaction commit for updation in database
                     }
                     catch (System.Exception)
-                    {
+                    { 
                         transaction.Rollback();         //changes rolls back if exception occured
                         throw;
                     }
