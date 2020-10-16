@@ -31,7 +31,7 @@ namespace CabBookingDal
         }
 
         //gets the area rows with corresponding location id
-        public IEnumerable<Area> GetArea(int id)        
+        public IEnumerable<Area> GetArea(int id)         
         {
             using (UserContext userContext = new UserContext())             //context object creation
             {
