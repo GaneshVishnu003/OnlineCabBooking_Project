@@ -1,15 +1,16 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
-using System.Web.Mvc;
+﻿using System.Web.Mvc;
 
 namespace OnlineCabBooking.Controllers
 {
     public class ErrorController : Controller
     {
         // GET: Error
-        public ActionResult ErrorAction()       //shows the page when error is occured
+        public ActionResult AdminError()       //shows the page when error is occured in Admin with message
+        {
+            return View();
+        }
+
+        public ActionResult UserError()         //shows the page as error without internal message
         {
             return View();
         }

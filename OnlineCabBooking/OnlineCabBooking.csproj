@@ -129,6 +129,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="App_Start\BundleConfig.cs" />
+    <Compile Include="App_Start\CustomException.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Controllers\AdminController.cs" />
@@ -139,14 +140,18 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Models\AdminSignIn.cs" />
     <Compile Include="Models\AreaVM.cs" />
-    <Compile Include="Models\AutoMap.cs" />
+    <Compile Include="App_Start\AutoMap.cs" />
     <Compile Include="Models\LocationVM.cs" />
     <Compile Include="Models\SignInVM.cs" />
-    <Compile Include="Models\SignUpNextVM.cs" />
+    <Compile Include="Models\DriverRegistration.cs" />
     <Compile Include="Models\SignUpVM.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Resource1.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Resource1.resx</DependentUpon>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
     <Content Include="Content\bootstrap-theme.css" />
@@ -155,13 +160,13 @@
     <Content Include="Content\bootstrap.min.css" />
     <Content Include="Content\bootstrapFlaty.css" />
     <Content Include="Content\bootstrapMint.css" />
-    <Content Include="Content\bootstrapYeti.css" />
     <Content Include="Content\Images\driver.jpg" />
     <Content Include="Content\StyleSheet.css" />
     <Content Include="favicon.ico" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
+    <Content Include="Logger\ExceptionLogger.txt" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
     <None Include="Scripts\jquery-3.4.1.intellisense.js" />
@@ -185,7 +190,6 @@
     <Content Include="Views\Web.config" />
     <Content Include="Views\_ViewStart.cshtml" />
     <Content Include="Views\Shared\Error.cshtml" />
-    <Content Include="Views\Shared\_Layout.cshtml" />
     <Content Include="Views\User\Index.cshtml" />
     <Content Include="Views\Shared\_MasterPage.cshtml" />
     <Content Include="Views\User\SignUp.cshtml" />
@@ -195,23 +199,21 @@
     <Content Include="Views\Admin\DisplayCustomer.cshtml" />
     <Content Include="Views\Location\AddLocation.cshtml" />
     <Content Include="Views\Location\Edit.cshtml" />
-    <Content Include="Views\User\SignUpNext.cshtml" />
+    <Content Include="Views\User\DriverRegistration.cshtml" />
     <Content Include="Views\Admin\DisplayDriver.cshtml" />
-    <Content Include="Views\Shared\AdminLayout.cshtml" />
     <Content Include="Views\Location\DisplayLocation.cshtml" />
-    <Content Include="Views\Admin\AddAdmin.cshtml" />
     <Content Include="Views\Location\Index.cshtml" />
     <Content Include="Views\Area\GetArea.cshtml" />
     <Content Include="Views\Area\DropOff.cshtml" />
     <Content Include="Views\Area\AddArea.cshtml" />
     <Content Include="Views\Area\ManageArea.cshtml" />
     <Content Include="Views\Area\Edit.cshtml" />
+    <Content Include="Views\Error\UserError.cshtml" />
+    <Content Include="Views\Shared\ErrorSignUp.cshtml" />
+    <Content Include="Views\Location\Map.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Views\Customer\" />
-    <Folder Include="Views\Driver\" />
-    <Folder Include="Views\Home\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff2" />
@@ -231,14 +233,16 @@
       <Project>{8fab7f34-5cb0-4bd3-a056-31a7c08dcfc7}</Project>
       <Name>CabBookingBL</Name>
     </ProjectReference>
-    <ProjectReference Include="..\CabBookingDal\CabBookingDal.csproj">
-      <Project>{B3D570BB-F6E5-4963-A9DA-70B35A92E8FF}</Project>
-      <Name>CabBookingDal</Name>
-    </ProjectReference>
     <ProjectReference Include="..\CabBookingEntity\CabBookingEntity.csproj">
       <Project>{cb24f756-763f-47cd-83d3-b65a8f4d8a2d}</Project>
       <Name>CabBookingEntity</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Resource1.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resource1.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

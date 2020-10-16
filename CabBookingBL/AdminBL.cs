@@ -1,27 +1,39 @@
 ﻿using CabBookingDal;
 using CabBookingEntity;
+using System.Collections;
 using System.Collections.Generic;
 
 namespace CabBookingBL
 {
-    public class AdminBL : IAdmin
+    public class AdminBL : IAdminBL
     {
-        IAdmin userRepository = new UserRepository();           //repository instance for admin interface object
-        
-
-        public IEnumerable<User> GetCustomerDetails()        //gets the list of the customers
+        IAdmin admin;           
+        public AdminBL()
         {
-           return userRepository.GetCustomerDetails();
+            admin = new UserRepository();          
+        }
+        //gets the list of the customers
+        public IEnumerable<User> GetCustomerDetails()        
+        {
+           return admin.GetCustomerDetails();
         }
 
-        public IEnumerable<User> GetDriverDetails()              //gets the list of the drivers
+        //gets the list of the drivers
+        public IEnumerable<User> GetDriverDetails()              
         {
-            return userRepository.GetDriverDetails();
+            return admin.GetDriverDetails();
         }
 
-        public void DeleteUser(int id)              //delete the user using the user id
+        //delete the user using the user id
+        public void DeleteUser(int id)             
         {
-            userRepository.DeleteUser(id);
+            admin.DeleteUser(id);
+        }
+
+        //gets all the roles including admin
+        public IEnumerable<Role> GetAllRoles()
+        {
+            return admin.GetAllRoles();
         }
     }
 }

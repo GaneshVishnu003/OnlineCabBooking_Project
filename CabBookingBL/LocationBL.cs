@@ -4,7 +4,7 @@ using System.Collections.Generic;
 
 namespace CabBookingBL
 {
-    public class LocationBL : ILocation
+    public class LocationBL : ILocationBL
     {
         ILocation locationRepository = new LocationRepository();    //locationrepository instance for location interface
         public IEnumerable<Location> GetLocation()          //gets the location      

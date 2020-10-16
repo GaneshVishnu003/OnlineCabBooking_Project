@@ -1,95 +1,93 @@
 ﻿using CabBookingBL;
-using CabBookingDal;
 using CabBookingEntity;
 using OnlineCabBooking.Models;
+using System.Collections.Generic;
 using System.Web.Mvc;
 
 namespace OnlineCabBooking.Controllers
 {
     public class AreaController : Controller
     {
-        //LocationBL locationBL = new LocationBL();
-        IArea areaBL= new AreaBL();
-        public ActionResult ManageArea(int id)              //Shows page for managing the areas
+        IAreaBL areaBL;
+        public AreaController()
         {
-            ViewBag.GetArea = areaBL.GetArea(id);
-            Session["LocationId"] = id;
+            areaBL = new AreaBL();
+        }
 
-            return View();
+        [Authorize(Roles = "Admin")]
+        //Shows page for managing the areas
+        public ActionResult ManageArea(int id)              
+        {
+           IEnumerable<Area> areaVM = areaBL.GetArea(id);       //gets all the area in the location
+           TempData["LocationId"] = id;
+           return View(areaVM);
         }
-        public ActionResult AddArea()           //adds new area
+
+        [Authorize(Roles = "Admin")]
+        //adds new area
+        public ActionResult AddArea()           
         {
             return View();
         }
+
         [HttpPost]
-        public ActionResult AddArea(AreaVM areaVM)      //post method for adding area
+        [ValidateAntiForgeryToken]
+        //post method for adding area
+        public ActionResult AddArea(AreaVM areaVM)      
         {
-           
             if (ModelState.IsValid)
             {
                 Area area = new Area();
-                area.LocationId = (int)Session["LocationId"];
-                area.AreaName = areaVM.AreaName;
+                area.LocationId = (int)TempData.Peek("LocationId");     //assign the location id    
+                area.AreaName = areaVM.AreaName;                        //assign the area name
                 areaBL.AddArea(area);
-                return RedirectToAction("ManageArea",new { id = area.LocationId });
+                return RedirectToAction("ManageArea", new { id = area.LocationId });
             }
             return View();
         }
 
-
-
-        public ActionResult Edit(int id)        //calls ediit for the area
+        [Authorize(Roles = "Admin")]
+        //calls edit for the area
+        public ActionResult Edit(int id)        
         {
+
             Area area = areaBL.GetAreaById(id);
-          AreaVM areaVM = new AreaVM()
-            {
-                LocationId = area.LocationId,
-                 AreaName= area.AreaName,
-                 AreaId=area.AreaId
-            };
+            var areaVM = AutoMapper.Mapper.Map<Area, AreaVM>(area);
             return View(areaVM);
         }
+
         [HttpPost]
-        public ActionResult Edit(AreaVM areaVm)         //post method for editing the area
+        [ValidateAntiForgeryToken]
+        //post method for editing the area
+        public ActionResult Edit(AreaVM areaVm)         
         {
             if (ModelState.IsValid)
             {
-                //var location = AutoMapper.Mapper.Map<Models.LocationVM, Location>(areaVm);
-                Area area = new Area()
-                {
-                    LocationId = areaVm.LocationId,
-                    AreaId = areaVm.AreaId,
-                    AreaName = areaVm.AreaName
-                };
+                var area = AutoMapper.Mapper.Map<AreaVM, Area>(areaVm);
                 areaBL.UpdateChanges(area);
-                return RedirectToAction("ManageArea",new { id = area.LocationId });
+                return RedirectToAction("ManageArea", new { id = area.LocationId });
             }
             return View();
         }
-        public ActionResult Delete(int id)          //deletes the area in the corresponding id
-        {
-           
-                areaBL.DeleteArea(id);
-            //int locationId = areaBL.GetLocationByArea(id);        //need correction for exception
-            //return RedirectToAction("ManageArea", new { id = locationId });
 
+        [Authorize(Roles = "Admin")]
+        //deletes the area in the corresponding id
+        public ActionResult Delete(int id)          
+        {
+            areaBL.DeleteArea(id);
             return RedirectToAction("index", "location");
         }
 
-
-
-
-        // GET: Area
-        public ActionResult GetArea(int id)
+        // gets all the area for choosing the pickup area
+        public ActionResult GetArea(int id)     
         {
-           // Session["LocationId"] = id;
             ViewBag.Area = areaBL.GetArea(id);
             return View();
         }
 
+        // gets all the area except pickup area for choosing the dropoff area
         public ActionResult DropOff(int id)
         {
-            Session["pickId"] = id;
             ViewBag.Drop = areaBL.DropOff(id);
             return View();
         }

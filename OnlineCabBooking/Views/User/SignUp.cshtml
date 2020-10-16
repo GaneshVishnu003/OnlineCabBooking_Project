@@ -6,80 +6,86 @@
 
 <h2>SignUp</h2>
 @*<h1>@ViewBag.success</h1>*@
-@using (Html.BeginForm("SignUp", "User", FormMethod.Post,new { @class="form" }))
+<script src="~/Scripts/jquery-3.4.1.min.js"></script>
+<script src="~/Scripts/jquery.validate.min.js"></script>
+<script src="~/Scripts/jquery.validate.unobtrusive.min.js"></script>
+@using (Html.BeginForm("SignUp", "User", FormMethod.Post, new { @class = "form" }))
 {
-@Html.AntiForgeryToken()
-<table cellpadding="10">
-    <tr>
-        <td>
-            @Html.Label("First Name")
-        </td>
-        <td>
-            @Html.TextBoxFor(Model => Model.FirstName, new { placeholder = "Enter your First Name" })
-            @Html.ValidationMessageFor(model => model.FirstName)
-        </td>
-    </tr>
+    @Html.AntiForgeryToken()
 
-    <tr>
-        <td>
-            @Html.Label("Last Name")
-        </td>
-        <td>
-            @Html.TextBoxFor(Model => Model.LastName, new { placeholder = "Enter your Last Name" })
-            @Html.ValidationMessageFor(model => model.LastName)
-        </td>
-    </tr>
-    <tr>
-        <td>
-            @Html.Label("Mobile Number")
-        </td>
-        <td>
-            @Html.TextBoxFor(Model => Model.MobileNumber, new { placeholder = "Enter the Mobile Number" })
-            @Html.ValidationMessageFor(model => model.MobileNumber)
-        </td>
-    </tr>
-    <tr>
-        <td>
-            @Html.Label("Mail Id")
-        </td>
-        <td>
-            @Html.TextBoxFor(Model => Model.MailId, new { placeholder = "Enter the Mail Id" })
-            @Html.ValidationMessageFor(model => model.MailId)
-        </td>
-    </tr>
-    <tr>
-        <td>
-            @Html.Label("Password")
-        </td>
-        <td>
-            @Html.PasswordFor(Model => Model.Password, new { placeholder = "Enter the Password" })
-            @Html.ValidationMessageFor(model => model.Password)
-        </td>
-    </tr>
-    <tr>
-        <td>
-            @Html.Label("Confirm Password")
-        </td>
-        <td>
-            @Html.PasswordFor(Model => Model.ConfirmPassword, new { placeholder = "Confirm the Password" })
-            @Html.ValidationMessageFor(model => model.ConfirmPassword)
-        </td>
-    </tr>
-    <tr>
-        <td>
-            @Html.Label("Role")
-        </td>
-        <td>
-            @Html.DropDownListFor(Model => Model.RoleId, (IEnumerable<SelectListItem>)ViewBag.Roles, "Select Role")
-            @Html.ValidationMessageFor(model => model.RoleId, null)
-        </td>
-    </tr>
-    <tr>
-        <td>
-        </td>
-        <td>
-            <input type="submit" />
-        </td>
-    </tr>
-</table>
-            }
+<div class="row-cols-sm-1">
+    <table cellpadding="5" border="1">
+        <tr>
+            <td>
+                @Html.Label("First Name")
+            </td>
+            <td>
+                @Html.TextBoxFor(Model => Model.FirstName, new { placeholder = "Enter your First Name" })
+                @Html.ValidationMessageFor(model => model.FirstName)
+            </td>
+        </tr>
+
+        <tr>
+            <td>
+                @Html.Label("Last Name")
+            </td>
+            <td>
+                @Html.TextBoxFor(Model => Model.LastName, new { placeholder = "Enter your Last Name" })
+                @Html.ValidationMessageFor(model => model.LastName)
+            </td>
+        </tr>
+        <tr>
+            <td>
+                @Html.Label("Mobile Number")
+            </td>
+            <td>
+                @Html.TextBoxFor(Model => Model.MobileNumber, new { placeholder = "Enter the Mobile Number" })
+                @Html.ValidationMessageFor(model => model.MobileNumber)
+            </td>
+        </tr>
+        <tr>
+            <td>
+                @Html.Label("Mail Id")
+            </td>
+            <td>
+                @Html.TextBoxFor(Model => Model.MailId, new { placeholder = "Enter the Mail Id" })
+                @Html.ValidationMessageFor(model => model.MailId)
+            </td>
+        </tr>
+        <tr>
+            <td>
+                @Html.Label("Password")
+            </td>
+            <td>
+                @Html.PasswordFor(Model => Model.Password, new { placeholder = "Enter the Password" })
+                @Html.ValidationMessageFor(model => model.Password)
+            </td>
+        </tr>
+        <tr>
+            <td>
+                @Html.Label("Confirm Password")
+            </td>
+            <td>
+                @Html.PasswordFor(Model => Model.ConfirmPassword, new { placeholder = "Confirm the Password" })
+                @Html.ValidationMessageFor(model => model.ConfirmPassword)
+            </td>
+        </tr>
+        <tr>
+            <td>
+                @Html.Label("Role")
+            </td>
+            <td>
+                @Html.DropDownListFor(Model => Model.RoleId, (IEnumerable<SelectListItem>)TempData["Roles"], "Select the Role")
+                @Html.ValidationMessageFor(model => model.RoleId, null)
+            </td>
+        </tr>
+        <tr>
+            <td>
+            </td>
+            <td>
+                <input type="submit" />
+            </td>
+        </tr>
+    </table>
+</div>
+}

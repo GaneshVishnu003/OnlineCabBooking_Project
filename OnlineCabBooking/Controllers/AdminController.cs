@@ -1,63 +1,58 @@
 ﻿using CabBookingBL;
 using CabBookingEntity;
-using OnlineCabBooking.Models;
 using System.Collections.Generic;
 using System.Web.Mvc;
 
 namespace OnlineCabBooking.Controllers
 {
-    
+    [Authorize(Roles = "Admin")]
     public class AdminController : Controller
     {
-        AdminBL adminBL = new AdminBL();
-        public ActionResult Home()          //admin main page 
+        IAdminBL adminBL;
+        public AdminController()
         {
-            return View();
+            adminBL = new AdminBL();
         }
-        public ActionResult DeleteCustomer(int id)      //call for deleting the customer
-        {
-            adminBL.DeleteUser(id);
-            return RedirectToAction("DisplayCustomer");
-        }
-        public ActionResult DeleteDriver(int id)         //call for deleting the driver
-        {
-            adminBL.DeleteUser(id);
-            return RedirectToAction("DisplayDriver");
-        }
-        [Authorize]
-        public ActionResult DisplayCustomer()               //call for displaying the customer
-        {
-            IEnumerable<User> user = adminBL.GetCustomerDetails();
-            return View(user);
-        }
-        public ActionResult DisplayDriver()             //call for displaying the driver
-        {
-            IEnumerable<User> user = adminBL.GetDriverDetails();
-            return View(user);
-        }
-        
-        public ActionResult AddAdmin()          //adds new admin
+
+        //admin main page 
+        public ActionResult Home()
         {
             return View();
         }
 
-        [HttpPost]
-        public ActionResult AddAdmin(SignUpVM signUp)           //post method for adding the admin
+        //call for displaying the customer
+        public ActionResult DisplayCustomer()
         {
-            if(ModelState.IsValid)
-            {
-                signUp.RoleId = 3;
-                var user=AutoMapper.Mapper.Map<SignUpVM, User>(signUp);
-                UserBL userBL = new UserBL();
-                userBL.SignUp(user);
-            }
-            return View();
+            IEnumerable<User> user = adminBL.GetCustomerDetails();
+            return View(user);
         }
-        //public ActionResult HandleLocations()
-        //{  
-        //    LocationBL locationBL = new LocationBL();
-        //    IEnumerable<Location> location = locationBL.GetLocation();  // got from index in location controller
-        //    return View(location);
-        //}
+
+        //call for displaying the driver
+        public ActionResult DisplayDriver()
+        {
+            IEnumerable<User> user = adminBL.GetDriverDetails();
+            return View(user);
+        }
+
+        //calls for deleting the customer
+        public ActionResult DeleteCustomer(int id)
+        {
+            adminBL.DeleteUser(id);
+            return RedirectToAction("DisplayCustomer");
+        }
+
+        //call for deleting the driver
+        public ActionResult DeleteDriver(int id)
+        {
+            adminBL.DeleteUser(id);
+            return RedirectToAction("DisplayDriver");
+        }
+
+        //adds new admin
+        public ActionResult AddAdmin()
+        {
+            TempData["Roles"] = new SelectList(adminBL.GetAllRoles(), "RoleId", "RoleName");  //gets all the roles for selection
+            return RedirectToAction("SignUp", "User");
+        }
     }
 }

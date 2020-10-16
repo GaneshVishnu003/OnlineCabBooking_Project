@@ -43,6 +43,10 @@
   <ItemGroup>
     <Compile Include="AdminBL.cs" />
     <Compile Include="AreaBL.cs" />
+    <Compile Include="IAdminBL.cs" />
+    <Compile Include="IAreaBL.cs" />
+    <Compile Include="ILocationBL.cs" />
+    <Compile Include="IUserBL.cs" />
     <Compile Include="LocationBL.cs" />
     <Compile Include="UserBL.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

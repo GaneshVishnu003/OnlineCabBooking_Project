@@ -5,5 +5,5 @@
 <h2>DropOff</h2>
 @foreach (var result in ViewBag.Drop)
 {
-    <div>@Html.ActionLink((string)result.AreaName, "dropoff", new { id = result.AreaId })</div>
+    <div>@Html.ActionLink((string)result.AreaName, "DriverDetails", new { id = result.AreaId })</div>
 }

@@ -1,10 +1,5 @@
 ﻿using CabBookingEntity;
-using System;
-using System.Collections.Generic;
 using System.Data.Entity;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace CabBookingDal
 {
@@ -14,12 +9,12 @@ namespace CabBookingDal
         {
               
         }
-        public DbSet<User> UserEntity { get; set; }
-        public DbSet<Role> Role { get; set; }
-        public DbSet<Location> LocationEntity { get; set; }
-        public DbSet<Cab> CabEntity { get; set; }
-        public DbSet<CabType> CabType { get; set; }
-        public DbSet<Area> Area { get; set; }
+        public DbSet<User> UserEntities { get; set; }
+        public DbSet<Role> Roles { get; set; }
+        public DbSet<Location> LocationEntities { get; set; }
+        public DbSet<Cab> CabEntities { get; set; }
+        public DbSet<CabType> CabTypes { get; set; }
+        public DbSet<Area> Areas { get; set; }
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {

@@ -1,18 +1,17 @@
-﻿@*@model OnlineCabBooking.Models.AreaVM*@
+﻿@model IEnumerable<CabBookingEntity.Area>
+
+@*@model IEnumerable<OnlineCabBooking.Models.AreaVM>*@
 
 @{
     ViewBag.Title = "ManageArea";
 }
 
-<h2>ManageArea</h2>
-<table>
-    <tr>
-        <td colspan="2">@Html.ActionLink("Add New Area", "AddArea","Area")</td>
-    </tr>
-    <tr><td>Area Name</td></tr>
-    @foreach (var result in ViewBag.GetArea)
+<h2>Area Management</h2>
+<table cellpadding="15" border="2">
+    <tr><td><b>Area Name</b></td><td colspan="2">@Html.ActionLink("Add New Area", "AddArea", "Area")</td></tr>
+    @foreach (var result in Model)
     {
-        <tr><td>@result.AreaName</td><td>@Html.ActionLink("Edit", "Edit", new { id = result.AreaId })</td><td>@Html.ActionLink("Delete", "Delete", new { id = result.AreaId },new { Onclick = "return confirm('Are You sure to delete')" })</td></tr>
+        <tr><td>@result.AreaName</td><td>@Html.ActionLink("Edit", "Edit", new { id = result.AreaId })</td><td>@Html.ActionLink("Delete", "Delete", new { id = result.AreaId }, new { Onclick = "return confirm('Are You sure to delete')" })</td></tr>
     }
     <tr></tr>
 </table>

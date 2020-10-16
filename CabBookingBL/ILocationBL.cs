@@ -1,9 +1,9 @@
 ﻿using CabBookingEntity;
 using System.Collections.Generic;
 
-namespace CabBookingDal
+namespace CabBookingBL
 {
-    public interface ILocation      //location interface
+    public interface ILocationBL
     {
         IEnumerable<Location> GetLocation();
         void AddLocation(Location location);

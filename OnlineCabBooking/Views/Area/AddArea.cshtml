@@ -8,6 +8,7 @@
 @*@Model => Model.LocationId = (int)TempData["LocationId"];*@
 @using (Html.BeginForm("AddArea", "Area", FormMethod.Post))
 {
+    @Html.AntiForgeryToken();
     <table>
         <tr>
             <td>@Html.DisplayNameFor(Model => Model.AreaName)</td>

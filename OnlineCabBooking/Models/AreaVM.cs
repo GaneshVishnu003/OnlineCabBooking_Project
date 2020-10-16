@@ -1,5 +1,4 @@
-﻿
-using System.ComponentModel.DataAnnotations;
+﻿using System.ComponentModel.DataAnnotations;
 
 namespace OnlineCabBooking.Models
 {
@@ -7,6 +6,7 @@ namespace OnlineCabBooking.Models
     {
         public int AreaId { get; set; }
         public int LocationId { get; set; }
+
         [Required]
         [StringLength(30)]
         public string AreaName { get; set; }

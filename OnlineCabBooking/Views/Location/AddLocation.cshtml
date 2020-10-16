@@ -1,25 +1,21 @@
 ﻿@model OnlineCabBooking.Models.LocationVM
 
-@{
-    ViewBag.Title = "AddLocation";
-    Layout = "~/Views/Shared/AdminLayout.cshtml";
-}
-
 <h2>AddLocation</h2>
 @using (Html.BeginForm("AddLocation", "Location", FormMethod.Post))
 {
-<table>
-    <tr>
-        <td>@Html.DisplayNameFor(Model => Model.CityName)</td>
-        <td>@Html.TextBoxFor(Model => Model.CityName)</td>
-        <td>@Html.ValidationMessageFor(model => model.CityName)</td>
-    </tr>
-    <tr>
-        <td>@Html.DisplayNameFor(Model => Model.DistrictName)</td>
-        <td>@Html.TextBoxFor(Model => Model.DistrictName)</td>
-        <td>@Html.ValidationMessageFor(model => model.DistrictName)</td>
-    </tr>
-    <tr><td></td><td><input type="submit" /></td></tr>
-</table>
+    @Html.AntiForgeryToken();
+    <table>
+        <tr>
+            <td>@Html.DisplayNameFor(Model => Model.CityName)</td>
+            <td>@Html.TextBoxFor(Model => Model.CityName)</td>
+            <td>@Html.ValidationMessageFor(model => model.CityName)</td>
+        </tr>
+        <tr>
+            <td>@Html.DisplayNameFor(Model => Model.DistrictName)</td>
+            <td>@Html.TextBoxFor(Model => Model.DistrictName)</td>
+            <td>@Html.ValidationMessageFor(model => model.DistrictName)</td>
+        </tr>
+        <tr><td></td><td><input type="submit" /></td></tr>
+    </table>
 }
 

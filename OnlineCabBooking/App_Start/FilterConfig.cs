@@ -1,5 +1,4 @@
-﻿using System.Web;
-using System.Web.Mvc;
+﻿using System.Web.Mvc;
 
 namespace OnlineCabBooking
 {
@@ -7,7 +6,8 @@ namespace OnlineCabBooking
     {
         public static void RegisterGlobalFilters(GlobalFilterCollection filters)
         {
-            filters.Add(new HandleErrorAttribute());
+            filters.Add(new CustomException());
+           // filters.Add(new HandleErrorAttribute());
         }
     }
 }

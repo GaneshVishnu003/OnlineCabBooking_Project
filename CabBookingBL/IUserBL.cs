@@ -1,9 +1,9 @@
 ﻿using CabBookingEntity;
 using System.Collections.Generic;
 
-namespace CabBookingDal
+namespace CabBookingBL
 {
-    public interface IUser      //user interface
+    public interface IUserBL
     {
         IEnumerable<Role> GetRoles();
         void SignUp(User user);

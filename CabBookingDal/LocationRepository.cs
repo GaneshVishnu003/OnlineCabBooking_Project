@@ -1,5 +1,4 @@
 ﻿using System.Collections.Generic;
-using System.Data.SqlClient;
 using System.Linq;
 using CabBookingEntity;
 
@@ -7,70 +6,55 @@ namespace CabBookingDal
 {
     public class LocationRepository : ILocation         //inherits the location interface
     {
-        UserContext userContext = new UserContext();
-        public IEnumerable<Location> GetLocation()      //displays the location
-        {
-            IEnumerable<Location> locations = userContext.LocationEntity.ToList();
-            return locations;
-        }
 
-        public void AddLocation(Location location)   //adds new location
+        //returns the location for display
+        public IEnumerable<Location> GetLocation()      
         {
-            using (var transaction = userContext.Database.BeginTransaction())   //transaction begins
+            using (UserContext userContext = new UserContext())
             {
-                try
-                {
-                    SqlParameter city = new SqlParameter("@CityName", location.CityName);
-                    SqlParameter district = new SqlParameter("@DistrictName", location.DistrictName);
-                    var data = userContext.Database.ExecuteSqlCommand("Location_Insert @DistrictName, @CityName", district, city);         //calls the insert stored procedure
-                    transaction.Commit();       //commits the transaction
-                }
-                catch(System.Exception)
-                {
-                    transaction.Rollback();   //rolls back the changes if exception occurs
-                }
-            }
-        }
-        public Location GetlocationById(int locationId)     //gets the location 
-        {
-            return userContext.LocationEntity.Single(id => id.LocationId == locationId);
-        }
-        
-        public void UpdateChanges(Location location)        //updates the edited changes
-        {
-            using (var transaction = userContext.Database.BeginTransaction())
-            {
-                try
-                {
-                    //userContext.Entry(location).State = EntityState.Modified;        //previous method
-                    SqlParameter id = new SqlParameter("@LocationId", location.LocationId);
-                    SqlParameter city = new SqlParameter("@CityName", location.CityName);
-                    SqlParameter district = new SqlParameter("@DistrictName", location.DistrictName);
-                    var datainfo = userContext.Database.ExecuteSqlCommand("Location_Update @LocationId,@DistrictName, @CityName", district, city, id);
-                    //userContext.SaveChanges();
-                    transaction.Commit();
-                }
-                catch (System.Exception)
-                {
-                    transaction.Rollback();
-                }
+                IEnumerable<Location> locations = userContext.LocationEntities.ToList();
+                return locations;
             }
         }
 
-        public void DeleteLocation(int locationId)     //deletes the corresponding location
+        //adds new location
+        public void AddLocation(Location location)   
         {
-            using (var transaction = userContext.Database.BeginTransaction())
+            using (UserContext userContext = new UserContext())
             {
-                try
-                {
-                    SqlParameter id = new SqlParameter("@LocationId", locationId);
-                    var data = userContext.Database.ExecuteSqlCommand("Location_Delete @LocationId", id);
-                    transaction.Commit();
-                }
-                catch (System.Exception)
-                {
-                    transaction.Rollback();
-                }
+                userContext.LocationEntities.Add(location);
+                userContext.SaveChanges();
+            }
+        }
+
+        //gets the location 
+        public Location GetlocationById(int locationId)     
+        {
+            using (UserContext userContext = new UserContext())
+            {
+                return userContext.LocationEntities.Single(id => id.LocationId == locationId);
+            }
+        }
+
+        //updates the edited changes
+        public void UpdateChanges(Location location)        
+        {
+            using (UserContext userContext = new UserContext())
+            {
+                userContext.Entry(location).State = System.Data.Entity.EntityState.Modified;
+                userContext.SaveChanges();
+            }
+        }
+
+        //deletes the corresponding location
+        public void DeleteLocation(int locationId)     
+        {
+            using (UserContext userContext = new UserContext())
+            {
+                Location location = GetlocationById(locationId);
+                userContext.LocationEntities.Attach(location);         //needs attach since different context object
+                userContext.LocationEntities.Remove(location);
+                userContext.SaveChanges();
             }
         }
     }

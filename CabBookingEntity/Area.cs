@@ -7,8 +7,10 @@ namespace CabBookingEntity
     {
         [Required]
         public int AreaId { get; set; }
+
         [Required]
         public int LocationId { get; set; }
+
         [ForeignKey("LocationId")]
         public Location Location { get; set; }
         [Required]

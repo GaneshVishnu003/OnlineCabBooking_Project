@@ -7,16 +7,18 @@
 <h2>Edit @Model.AreaName</h2>
 @using (Html.BeginForm("Edit", "Area", FormMethod.Post))
 {
+    @Html.AntiForgeryToken();
     @Html.HiddenFor(Model => Model.LocationId)
     @Html.HiddenFor(Model => Model.AreaId)
-    <table>
+    <table cellpadding="10" border="1">
         <tr>
             <td>@Html.Label("Area")</td>
-            <td>@Html.TextBoxFor(Model=>Model.AreaName)
-                  @Html.ValidationMessageFor(Model=>Model.AreaName)
-            </td>
-        </tr>
-        <tr><td></td><td><input type="submit" /></td></tr>
-    </table>
+            <td>
+                @Html.TextBoxFor(Model => Model.AreaName)
+            @Html.ValidationMessageFor(Model => Model.AreaName)
+        </td>
+    </tr>
+    <tr><td></td><td><input type="submit" /></td></tr>
+</table>
 }
 

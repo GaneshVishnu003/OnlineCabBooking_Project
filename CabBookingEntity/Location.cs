@@ -11,6 +11,7 @@ namespace CabBookingEntity
         [Index("OfficialIds", 1)]
         public string CityName { get; set; }
         [Required]
+        [StringLength(30)]
         public string DistrictName { get; set; }
 
     }

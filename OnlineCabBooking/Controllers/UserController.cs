@@ -1,126 +1,122 @@
 ﻿using CabBookingBL;
 using System.Web.Mvc;
 using OnlineCabBooking.Models;
-using System.Collections.Generic;
 using CabBookingEntity;
-
+using System.Web.Security;
+using System.Web;
+using System;
 
 namespace OnlineCabBooking.Controllers
 {
-   // [HandleError]
+    
     public class UserController : Controller
     {
-        UserBL userBL = new CabBookingBL.UserBL();
-
-        [HttpGet]
-        public ActionResult Index()             //gets the home page
+        IUserBL userBL;
+        public UserController()
         {
-            if (Session["FirstName"] == null)
-            {
-                return View();
-            }
-            else
-            {
-                return RedirectToAction("Logout","user");
-            }
+            userBL = new UserBL();
         }
-        // GET: User
-        [HttpGet]
-        public ActionResult SignUp()            //renders the sign up  form
+
+        //gets the home page
+        public ActionResult Index()             
         {
-            ViewBag.Roles = new SelectList(userBL.GetRoles(), "RoleId", "RoleName");
             return View();
         }
-        // [ValidateAntiForgeryToken]
-        [HttpPost]
-        public ActionResult SignUp(SignUpVM signUp)             //post action for sign up
+
+        //renders the sign up  form
+        public ActionResult SignUp()            
         {
-           ViewBag.Roles = new SelectList(userBL.GetRoles(), "RoleId", "RoleName");
+            if (TempData["Roles"] == null)          //checks for roles available through admin
+                TempData["Roles"] = new SelectList(userBL.GetRoles(), "RoleId", "RoleName");    //gets roles except admin
+            return View();
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        //post action for sign up
+        public ActionResult SignUp(SignUpVM signUp)             
+        {
             if (ModelState.IsValid)
             {
                 var user = AutoMapper.Mapper.Map<SignUpVM, User>(signUp);
                 userBL.SignUp(user);
-                if (signUp.RoleId == 2)
+                if (user.Role.RoleName == UserRoles.Driver.ToString())
                 {
-                    
-                     int userId = userBL.GetUserId(signUp.MailId);
+                    int userId = userBL.GetUserId(signUp.MailId);
                     TempData["id"] = userId;
-                    //Session["FirstName"] = userData.FirstName;
-                    return RedirectToAction("SignUpNext");
+                    return RedirectToAction("DriverRegistration");
                 }
-                else
-                {
-                    //ViewBag.success = "Registered successfully as Customer";
-                    return View("SignIn");
-                }
+                return View("SignIn");
             }
+            if (TempData["Roles"] == null)      //checks for roles available through admin
+                TempData["Roles"] = new SelectList(userBL.GetRoles(), "RoleId", "RoleName");
             return View();
         }
 
-        public ActionResult LogOut()    //logs out the user
+        //logs out the user
+        public ActionResult LogOut()    
         {
+            FormsAuthentication.SignOut();
             Session.Abandon();
-            return RedirectToAction("index","user");
+            return RedirectToAction("index", "user");
         }
 
-        public ActionResult SignUpNext()        //sign up form for cab registration
+        //sign up form for cab registration
+        public ActionResult DriverRegistration()        
         {
             ViewBag.Type = new SelectList(userBL.GetCabType(), "TypeId", "TypeName");
             return View();
         }
+
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult SignUpNext(SignUpNextVM signUp)         //post method for cab registration
+        //post method for cab registration
+        public ActionResult DriverRegistration(DriverRegistration signUp)         
         {
             ViewBag.Type = new SelectList(userBL.GetCabType(), "TypeId", "TypeName");
+            if(TempData["id"]==null)
+            {
+                return View("SignUp");
+            }
             signUp.UserId = (int)TempData["id"];
-            var cab = AutoMapper.Mapper.Map<SignUpNextVM,Cab>(signUp);
-           // UserRepository userRepository = new UserRepository();
-            userBL.SignUpNext(cab);
+            var cab = AutoMapper.Mapper.Map<DriverRegistration, Cab>(signUp);
+            userBL.DriverRegistration(cab);
             ViewBag.success = "Logged in successfully as Driver";
-            return View();
+            return View("SignIn");
         }
-        public ActionResult SignIn()            //renders the sign in form
+
+        //renders the sign in form
+        public ActionResult SignIn()            
         {
             return View();
         }
+
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult SignIn(SignInVM signIn)         //post action for sign in
+        //post action for sign in
+        public ActionResult SignIn(SignInVM signIn)         
         {
             var user = AutoMapper.Mapper.Map<SignInVM, User>(signIn);
-          
             User value = userBL.CheckLogin(user);
             if (value != null)
             {
+                FormsAuthentication.SetAuthCookie(value.MailId, false);
+                var authTicket = new FormsAuthenticationTicket(1, value.MailId, DateTime.Now, DateTime.Now.AddMinutes(20), false, value.Role.RoleName);
+                string encryptedTicket = FormsAuthentication.Encrypt(authTicket);
+                var authCookie = new HttpCookie(FormsAuthentication.FormsCookieName, encryptedTicket);
+                HttpContext.Response.Cookies.Add(authCookie);
                 Session["FirstName"] = value.FirstName;
                 Session["userId"] = value.UserId;
-                if (value.RoleId == 1)                  //check for customer
-                {
-                    ViewBag.value = "Logged in Successfully as Customer";
-                    return RedirectToAction("DisplayLocation", "Location"); ;     //need to change
-                }
-                else if (value.RoleId == 2)         //check for driver
-                {
-                    ViewBag.value = "Logged in successfully as Driver";
-                    return View();   //need to change
-                }
-                else if (value.RoleId == 3)         //check for admin                        
-                {
-                    ViewBag.value = "Logged in successfully as Admin";
+                ViewBag.value = "Logged in successfully as " + value.Role.RoleName;    
+                if (value.Role.RoleName == UserRoles.Customer.ToString())                //check for customer
+                    return RedirectToAction("index", "user");
+                else if (value.Role.RoleName == UserRoles.Driver.ToString())         //check for driver
+                    return RedirectToAction("index", "user"); 
+                else if (value.Role.RoleName == UserRoles.Admin.ToString())         //check for admin 
                     return RedirectToAction("Home", "Admin");
-                }
-                else
-                {
-                    ViewBag.value = "Please enter correct details";
-                    return View();
-                }
             }
-            else
-            {
-                ViewBag.value = "Please enter correct details";
-                return View();
-            }
+            ViewBag.value = "Please enter correct details";
+            return View();
         }
     }
 }

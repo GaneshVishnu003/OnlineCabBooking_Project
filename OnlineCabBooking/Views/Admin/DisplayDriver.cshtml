@@ -1,29 +1,26 @@
 ﻿@model IEnumerable<CabBookingEntity.User>
 
-@{
-    ViewBag.Title = "DisplayUser";
-    Layout = "~/Views/Shared/AdminLayout.cshtml";
-}
 
-<h2>DisplayUser</h2>
-<table>
-    <thead>customers</thead>
-    <tr><td>First Name</td><td>Last Name</td><td>Mobile</td><td>Mail Id</td></tr>
+<h2>Drivers</h2>
+<table border="2">
+    <tr><td><b>First Name</b></td><td><b>Last Name</b></td><td><b>Mobile</b></td><td><b>Mail Id</b></td><td><b>Cab Number</b></td><td><b>Licence Number</b></td><td><b>Confirm Status</b></td></tr>
     @foreach (var result in Model)
     {
-        <tr>
-            <td>@result.FirstName</td>
-            <td>@result.LastName</td>
-            <td>@result.MobileNumber</td>
-            <td>@result.MailId</td>
+<tr>
+    <td>@result.FirstName</td>
+    <td>@result.LastName</td>
+    <td>@result.MobileNumber</td>
+    <td>@result.MailId</td>
 
-            @foreach (var item in result.Cab)
-            {
-                <td>@item.CabNumber</td>
-            }
+    @foreach (var item in result.Cab)
+    {
+        <td>@item.CabNumber</td>
+        <td>@item.LicenceNumber</td>
+        <td>@item.RequestStatus</td>
+    }
 
-            <td>@Html.ActionLink("Delete", "DeleteDriver", new { id = result.UserId },new { Onclick = "return confirm('Are You sure to delete')" })</td>
-        </tr>
+    <td>@Html.ActionLink("Delete", "DeleteDriver", new { id = result.UserId }, new { Onclick = "return confirm('Are You sure to delete')" })</td>
+</tr>
     }
 </table>
 

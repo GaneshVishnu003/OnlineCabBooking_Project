@@ -105,6 +105,10 @@
     <Compile Include="Migrations\202003170513015_AreaCrud.designer.cs">
       <DependentUpon>202003170513015_AreaCrud.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202003271211247_updation.cs" />
+    <Compile Include="Migrations\202003271211247_updation.designer.cs">
+      <DependentUpon>202003271211247_updation.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="UserContext.cs" />
     <Compile Include="UserRepository.cs" />
@@ -154,6 +158,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202003170513015_AreaCrud.resx">
       <DependentUpon>202003170513015_AreaCrud.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202003271211247_updation.resx">
+      <DependentUpon>202003271211247_updation.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

@@ -1,13 +1,9 @@
 ﻿@model OnlineCabBooking.Models.LocationVM
 
-@{
-    ViewBag.Title = "Edit";
-    Layout = "~/Views/Shared/AdminLayout.cshtml";
-}
-
 <h2>Edit</h2>
 @using (Html.BeginForm("Edit", "Location", FormMethod.Post))
 {
+    @Html.AntiForgeryToken();
     @Html.HiddenFor(Model => Model.LocationId)
     <table cellpadding="10" border="1">
         <tr>

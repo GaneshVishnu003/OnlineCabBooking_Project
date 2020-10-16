@@ -5,35 +5,40 @@
 }
 <h2>SignIn</h2>
 <h2>@ViewBag.value</h2>
-@using (Html.BeginForm("SignIn", "User", FormMethod.Post,new { @class="form" }))
-{
-    @Html.AntiForgeryToken()
-    <table>
-        <tr>
-            <td>
-                @Html.Label("Mail Id")
-            </td>
-            <td>
-                @Html.TextBoxFor(Model => Model.MailId)
-                @Html.ValidationMessageFor(model => model.MailId)
-            </td>
-        </tr>
-        <tr>
-            <td>
-                @Html.Label("Password")
-            </td>
-            <td>
-                @Html.PasswordFor(Model => Model.Password)
-                @Html.ValidationMessageFor(model => model.Password)
-            </td>
-        </tr>
-        <tr>
-            <td>
-            </td>
-            <td>
-                <input type="submit" />
-            </td>
-        </tr>
-    </table>
-}
+<script src="~/Scripts/jquery-3.4.1.min.js"></script>
+<script src="~/Scripts/jquery.validate.min.js"></script>
+<script src="~/Scripts/jquery.validate.unobtrusive.min.js"></script>
+<div>
+    @using (Html.BeginForm("SignIn", "User", FormMethod.Post, new { @class = "form" }))
+    {
+        @Html.AntiForgeryToken()
+        <table cellpadding="10" border="1">
+            <tr>
+                <td>
+                    @Html.Label("Mail Id")
+                </td>
+                <td>
+                    @Html.TextBoxFor(Model => Model.MailId)
+                    @Html.ValidationMessageFor(model => model.MailId)
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    @Html.Label("Password")
+                </td>
+                <td>
+                    @Html.PasswordFor(Model => Model.Password)
+                    @Html.ValidationMessageFor(model => model.Password)
+                </td>
+            </tr>
+            <tr>
+                <td>
+                </td>
+                <td>
+                    <input type="submit" />
+                </td>
+            </tr>
+        </table>
+    }
+</div>
 

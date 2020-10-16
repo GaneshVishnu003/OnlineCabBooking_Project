@@ -5,43 +5,52 @@ using System.Collections.Generic;
 
 namespace CabBookingBL
 {
-    public class AreaBL : IArea
+    public class AreaBL : IAreaBL
     {
-        IArea areaRepository = new AreaRepository();           //repository instance for admin interface object
-        public void AddArea(Area area)              //adds new area
+        IArea areaRepository;           
+        public AreaBL()
+        {
+            areaRepository = new AreaRepository();
+        }
+
+        //adds new area
+        public void AddArea(Area area)              
         {
             areaRepository.AddArea(area);
         }
 
-        public IEnumerable<Area> GetArea(int id)        //shows the areas for pickup
+        //shows the areas for pickup
+        public IEnumerable<Area> GetArea(int id)       
         {
             return areaRepository.GetArea(id);
         }
 
-        public IEnumerable<Area> DropOff(int id)            //gives remaining areas for drop off
+        //gives remaining areas for drop off
+        public IEnumerable<Area> DropOff(int id)            
         {
-            //int pickupId = area.AreaId;
             return areaRepository.DropOff(id);
         }
 
-
-        public Area GetAreaById(int id)             //gets the corresponding area for the id
+        //gets the corresponding area for the id
+        public Area GetAreaById(int id)             
         {
             return areaRepository.GetAreaById(id);
         }
 
-        public void UpdateChanges(Area area)            //updates the edited area value
+        //updates the edited area value
+        public void UpdateChanges(Area area)            
         {
             areaRepository.UpdateChanges(area);
         }
 
-        public int GetLocationByArea(int id)            //gets the corresponding location for the id
+        //gets the corresponding location for the id
+        public int GetLocationByArea(int id)            
         {
             return areaRepository.GetLocationByArea(id);
         }
 
-
-        public void DeleteArea(int id)               //deletes the corresponding area in the location
+        //deletes the corresponding area in the location
+        public void DeleteArea(int id)               
         {
             areaRepository.DeleteArea(id);
         }

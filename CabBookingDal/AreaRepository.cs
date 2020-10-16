@@ -7,7 +7,8 @@ namespace CabBookingDal
 {
     public class AreaRepository : IArea
     {
-        public void AddArea(Area area)   //Adds new area
+        //Adds new area
+        public void AddArea(Area area)   
         {
             using (UserContext userContext = new UserContext())         //context object creation
             {
@@ -23,36 +24,42 @@ namespace CabBookingDal
                     catch (System.Exception)
                     {
                         transaction.Rollback();         //changes rolls back if exception occured
+                        throw;
                     }
                 }
             }
         }
 
-        public IEnumerable<Area> GetArea(int id)        //gets the area rows with corresponding location id
+        //gets the area rows with corresponding location id
+        public IEnumerable<Area> GetArea(int id)        
         {
             using (UserContext userContext = new UserContext())             //context object creation
             {
-                return userContext.Area.Where(value => value.LocationId == id).ToList();    //returns area object
-            }
-        }
-        public IEnumerable<Area> DropOff(int id)        //gets the area rows except the pickup area
-        {
-            using (UserContext userContext = new UserContext())             //context object creation
-            {
-                int locationId = userContext.Area.Where(value => value.AreaId == id).FirstOrDefault().LocationId;       //gets the location of pickup area
-                return userContext.Area.Where(value => value.AreaId != id && value.LocationId == locationId).ToList();      //return remaining areas for drop off
+                return userContext.Areas.Where(value => value.LocationId == id).ToList();    //returns area object
             }
         }
 
-        public Area GetAreaById(int areaId)         //gets the area with the id
+        //gets the area rows except the pickup area
+        public IEnumerable<Area> DropOff(int id)        
+        {
+            using (UserContext userContext = new UserContext())             //context object creation
+            {
+                int locationId = userContext.Areas.Where(value => value.AreaId == id).FirstOrDefault().LocationId;       //gets the location of pickup area
+                return userContext.Areas.Where(value => value.AreaId != id && value.LocationId == locationId).ToList();      //return remaining areas for drop off
+            }
+        }
+
+        //gets the area with the id
+        public Area GetAreaById(int areaId)         
         {
             using (UserContext userContext = new UserContext())
             {
-                return userContext.Area.Single(id => id.AreaId == areaId);         //returns the area 
+                return userContext.Areas.Single(id => id.AreaId == areaId);         //returns the area 
             }
         }
 
-        public void UpdateChanges(Area area)            //updates the edited
+        //updates the edited
+        public void UpdateChanges(Area area)            
         {
             using (UserContext userContext = new UserContext())         //context object creation
             {
@@ -69,37 +76,31 @@ namespace CabBookingDal
                     catch (System.Exception)
                     {
                         transaction.Rollback();          //changes rolls back if exception occured
+                        throw;
                     }
                 }
             }
         }
 
-        public int GetLocationByArea(int id)          //gets the location by the area id
+        //gets the location by the area id
+        public int GetLocationByArea(int id)          
         {
             using (UserContext userContext = new UserContext())
             {
-                var obj = userContext.Area.Where(value => value.AreaId == id).SingleOrDefault();
+                var obj = userContext.Areas.Where(value => value.AreaId == id).SingleOrDefault();
                 return obj.LocationId;
             }
         }
 
-        public void DeleteArea(int areaId)          //deletes the area
+        //deletes the area
+        public void DeleteArea(int areaId)          
         {
-            using(UserContext userContext =new UserContext())
+            using (UserContext userContext = new UserContext())
             {
-                using (var transaction = userContext.Database.BeginTransaction())
-                {
-                    try
-                    {
-                        SqlParameter id = new SqlParameter("@AreaId", areaId);
-                        var data = userContext.Database.ExecuteSqlCommand("Area_Delete @AreaId", id);
-                        transaction.Commit();
-                    }
-                    catch (System.Exception)
-                    {
-                        transaction.Rollback();
-                    }
-                }
+                Area area = GetAreaById(areaId);
+                userContext.Areas.Attach(area);
+                userContext.Areas.Remove(area);
+                userContext.SaveChanges();
             }
         }
     }

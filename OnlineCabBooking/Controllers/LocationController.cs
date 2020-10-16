@@ -7,54 +7,66 @@ namespace OnlineCabBooking.Controllers
 {
     public class LocationController : Controller
     {
-        LocationBL locationBL = new LocationBL();
-
-        public ActionResult Index()         //shows the home page for location handling
+        ILocationBL locationBL;
+        public LocationController()
         {
+            locationBL = new LocationBL();
+        }
+
+        public ActionResult Map()
+        {
+            return View();
+        }
+
+        [Authorize(Roles = "Admin")]
+        //shows the home page for location handling
+        public ActionResult Index()
+        {
+
             IEnumerable<Location> location = locationBL.GetLocation();
             return View(location);
         }
 
-        public ActionResult DisplayLocation()           //displays the location
+        //displays the location
+        public ActionResult DisplayLocation()
         {
+
             ViewBag.Location = locationBL.GetLocation();
             return View();
         }
-        [HttpGet]
-        public ActionResult AddLocation()           //adds new location
+
+        //adds new location
+        public ActionResult AddLocation()
         {
             return View();
         }
+
         [HttpPost]
-        public ActionResult AddLocation(Models.LocationVM newLocation)          //post method for adding location
+        [ValidateAntiForgeryToken]
+        //post method for adding location
+        public ActionResult AddLocation(Models.LocationVM newLocation)
         {
             if (ModelState.IsValid)
             {
-                Location location = new Location()
-                {
-                    CityName = newLocation.CityName,
-                    DistrictName = newLocation.DistrictName
-                };
+                var location = AutoMapper.Mapper.Map<Models.LocationVM, Location>(newLocation);
                 locationBL.AddLocation(location);
                 return RedirectToAction("Index");
             }
             return View();
         }
 
-        public ActionResult Edit(int id)        //edits the current location
+        //edits the current location
+        public ActionResult Edit(int id)
         {
-            
             Location location = locationBL.GetlocationById(id);
-            Models.LocationVM locationVM = new Models.LocationVM()
-            {
-                LocationId = location.LocationId,
-                CityName = location.CityName,
-                DistrictName = location.DistrictName
-            };
+            var locationVM = AutoMapper.Mapper.Map<Location, Models.LocationVM>(location);
             return View(locationVM);
         }
+
         [HttpPost]
-        public ActionResult Edit(Models.LocationVM locationVm)      //post method for editing the location
+        [ValidateAntiForgeryToken]
+        //post method for editing the location
+        public ActionResult Edit(Models.LocationVM locationVm)
         {
             if (ModelState.IsValid)
             {
@@ -64,7 +76,9 @@ namespace OnlineCabBooking.Controllers
             }
             return View();
         }
-        public ActionResult Delete(int id)              //deletes the corresponding location
+
+        //deletes the corresponding location
+        public ActionResult Delete(int id)
         {
             locationBL.DeleteLocation(id);
             return RedirectToAction("Index");

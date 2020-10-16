@@ -1,7 +1,6 @@
 ﻿<!DOCTYPE html>
 
 <html>
-
 <head>
     <meta name="viewport" content="width=device-width" />
     <title>@ViewBag.Title</title>
@@ -15,48 +14,59 @@
     </header>
     <nav class="navbar">
         <div class="container">
-            <div>
-                @if (Session["FirstName"] == null)
+
+            <ul style="float:left">
+                <li>@Html.ActionLink("Home", "Index", "User")</li>
+
+                @if (HttpContext.Current.User.Identity.IsAuthenticated)
                 {
-                    <ul style="float:left">
-                        <li>@Html.ActionLink("Home", "Index", "User")</li>
-                        <li>@Html.ActionLink("Sign In", "SignIn", "User")</li>
-                        <li>@Html.ActionLink("Sign Up", "SignUp", "User")</li>
-                    </ul>
+
                 }
-                @if (Session["FirstName"] != null)
+                else
                 {
-                    <ul style="float:left">
-                        <li>@Html.ActionLink("Home", "Index", "User",null,new { Onclick = "return confirm('Oops...You Will be directed to log out.. Are you sure')" })</li>
-                        <li>@Html.ActionLink("Sign In", "SignIn", "User",null,new { Onclick = "return confirm('Oops...You Will be directed to log out.. Are you sure')" })</li>
-                        <li>@Html.ActionLink("Sign Up", "SignUp", "User",null,new { Onclick = "return confirm('Oops...You Will be directed to log out.. Are you sure')" })</li>
-                    </ul>
-                    <ul style="float:right">
-                        <li><b><i>Hello @Session["FirstName"]! &nbsp;</i></b></li>
-                        <li>@Html.ActionLink("Logout", "LogOut", "User",null, new { Onclick = "return confirm('You Will be logged out.. Are you sure')" })</li>
-                    </ul>
+                    <li>@Html.ActionLink("Sign In", "SignIn", "User")</li>
+                    <li>@Html.ActionLink("Sign Up", "SignUp", "User")</li>
+
                 }
-            </div>
+            </ul>
+
+            @if (HttpContext.Current.User.Identity.IsAuthenticated)
+            {
+                <ul style="float:right">
+                    <li><b><i>Hello @Session["FirstName"]! &nbsp;</i></b></li>
+                    <li>@Html.ActionLink("Logout", "LogOut", "User", null, new { Onclick = "return confirm('You Will be logged out.. Are you sure')" })</li>
+                </ul>
+            }
+            @if (HttpContext.Current.User.IsInRole("Admin"))
+            { 
+            <ul style="float:left">
+                <li>@Html.ActionLink("View Customers", "DisplayCustomer", "Admin")</li>
+                <li>@Html.ActionLink("View Drivers", "DisplayDriver", "Admin")</li>
+                <li>@Html.ActionLink("Handle Locations", "Index", "Location")</li>
+                <hli>@Html.ActionLink("Add User", "AddAdmin", "Admin")</hli>
+            </ul>
+            }
+            @if (HttpContext.Current.User.IsInRole("Customer"))
+            {
+                <ul style="float:left">
+                    <li>@Html.ActionLink("Book Ride", "displaylocation", "location")</li>
+                </ul>
+            }
+            @if (HttpContext.Current.User.IsInRole("Driver"))
+            {
+                <ul style="float:left">
+                    <li>@Html.ActionLink("See Areas", "displaylocation", "location")</li>
+                </ul>
+            }
+
         </div>
     </nav>
-    
+
     <div class="container">
-        <section class="showcase">
+        <section class="showcase" >
             @RenderBody()
         </section>
     </div>
-    
-    @*<div class="container">
-        <section class="main">
-
-        </section>
-        <aside class="sidebar">
-
-        </aside>
-    </div>
-    <footer class="main-footer">
-        <p>Copyright &copy; 2020 Online Cab Booking</p>
-    </footer>*@
 </body>
 </html>
 

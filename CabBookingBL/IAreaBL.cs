@@ -1,9 +1,9 @@
 ﻿using CabBookingEntity;
 using System.Collections.Generic;
 
-namespace CabBookingDal
+namespace CabBookingBL
 {
-    public interface IArea      //area interface
+    public interface IAreaBL
     {
         void AddArea(Area area);
         IEnumerable<Area> GetArea(int id);

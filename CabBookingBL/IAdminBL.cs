@@ -1,8 +1,10 @@
 ﻿using CabBookingEntity;
+using System.Collections;
 using System.Collections.Generic;
-namespace CabBookingDal
+
+namespace CabBookingBL
 {
-    public interface IAdmin         //admin interface
+    public interface IAdminBL
     {
         IEnumerable<User> GetCustomerDetails();
         IEnumerable<User> GetDriverDetails();

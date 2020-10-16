@@ -5,41 +5,49 @@ using System.Collections;
 
 namespace CabBookingBL
 {
-    public class UserBL : IUser
+    public class UserBL : IUserBL
     {
         IUser userRepository = new UserRepository();        //userrepository instance for user interface
-        public IEnumerable<Role> GetRoles()             //returns the roles for registration
+
+        //returns the roles for registration
+        public IEnumerable<Role> GetRoles()             
         {
             return userRepository.GetRoles();
         }
-        public void SignUp(User user)               // pass the signup object to repository
+
+        // pass the signup object to repository
+        public void SignUp(User user)               
         {
             userRepository.SignUp(user);
         }
-        public void SignUpNext(Cab cab)             //driver signup additional registration
+
+        //driver signup additional registration
+        public void DriverRegistration(Cab cab)             
         {
-            userRepository.SignUpNext(cab);
+            cab.RequestStatus = "Requested";
+            userRepository.DriverRegistration(cab);
         }
 
-
-        public User GetUserById(int userId)         //get the user row by the id
+        //get the user row by the id
+        public User GetUserById(int userId)         
         {
             return userRepository.GetUserById(userId);
         }
 
-        public int GetUserId(string mailId)      //get the user id using the unique mail id
+        //get the user id using the unique mail id
+        public int GetUserId(string mailId)      
         {
             return userRepository.GetUserId(mailId);
         }
 
-
-        public IEnumerable<CabType> GetCabType()      //get the type of cab while driver registration
+        //get the type of cab while driver registration
+        public IEnumerable<CabType> GetCabType()      
         {
             return userRepository.GetCabType();
         }
 
-       
-        public User CheckLogin(User user)        //check for valid login
+        //check for valid login
+        public User CheckLogin(User user)        
         {
             return userRepository.CheckLogin(user);
         }

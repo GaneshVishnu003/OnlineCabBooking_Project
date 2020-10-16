@@ -1,15 +1,15 @@
-﻿@model OnlineCabBooking.Models.SignUpNextVM
+﻿@model OnlineCabBooking.Models.DriverRegistration
 
 @{
-    ViewBag.Title = "SignUpNext";
+    ViewBag.Title = "Driver Registration";
 }
 <h2>SignUpNext</h2>
 @if (!IsPost)
 {
-    using (Html.BeginForm("SignUpNext", "User", FormMethod.Post,new { @class="form" }))
+    using (Html.BeginForm("DriverRegistration", "User", FormMethod.Post,new { @class="form" }))
     {
         @Html.AntiForgeryToken()
-        <table cellpadding="10">
+        <table cellpadding="10" border="1">
             <tr>
                 <td>
                     @Html.Label("Registration Number")

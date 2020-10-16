@@ -17,6 +17,17 @@ namespace CabBookingEntity
         public int UserId { get; set; }
         [Required]
         public int RoleId { get; set; }
+        //public int RoleId
+        //{
+        //    set
+        //    {
+        //        value = (int)UserRole;
+        //    }
+        //    get
+        //    {
+        //        return (int)UserRole;
+        //    }
+        //}
         [ForeignKey("RoleId")]
         public Role Role { get; set; }
         [Required]
@@ -33,7 +44,16 @@ namespace CabBookingEntity
         [Required]
         [MaxLength(30)]
         public string Password { get; set; }
-
+        //[Required]
+        //[NotMapped]
+       
         public ICollection<Cab> Cab { get; set; }           //binding
+    }
+
+    public enum UserRoles
+    {
+        Customer = 1,
+        Driver,
+        Admin
     }
 }
